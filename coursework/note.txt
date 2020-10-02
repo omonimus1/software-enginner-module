@@ -1,0 +1,11 @@
+In the report, discuss how we plan the development. (see week 4), discuss also the evolution, cost of evolution, 
+chance of sucess of the project. 
+
+Report, evaluation, discussion, evaluation plan ( 8 pages is the minimum for the report). There is no max 
+(as long the content is relevant). Font size: 12;
+test cases, user diagram, class diagram, are included in the counter pages. 
+
+Propotype: is 40% of coursework mark. 
+We need to record a demo and submit it as well, in one single .zip. 
+
+Demo video is used to explain how well the project is designed and explained. 

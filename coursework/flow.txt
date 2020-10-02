@@ -1,0 +1,6 @@
+1. App open up 
+2. We ask if user want to write a message or upload a file 
+3. When the message is sent, create positive alert saying that the message has been sent. 
+4. Analyze message type
+5. Store it
+6. Be able to fetch data back ( serialize and deserialize). 

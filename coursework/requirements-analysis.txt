@@ -1,0 +1,20 @@
+You are required to develop a service, namely Napier Bank Messaging (NBM), 
+which will validate, sanitize and categorise incoming messages to Napier Bank in the 
+form of SMS text messages, emails and Tweets.
+
+You are required to develop a prototype application that will enable the inputting of messages 
+in any of the forms in 2.1 above. The system must detect the message type and output each message in 
+JSON format in a file. You are required to research JSON and identify an appropriate API to allow 
+serialisation in a JSON file. Good places to start are:
+https://www.w3schools.com/js/js_json_syntax.asp
+https://blog.udemy.com/json-serializer-c-sharp/
+https://msdn.microsoft.com/en-us/library/bb410770(v=vs.110).aspx
+
+
+The User Interface (UI) should take the form of a kind of input form(s), e.g. WPF or Java form. 
+For the purposes of testing, messages will be input in the form of the Message Header (in one text box)
+and a block of Message Body text (in another text box) and redisplayed in appropriate text box(es) processed
+as specified above. The system must automatically identify the message type and process it accordingly. 
+Ideally the system will also be able to take its input from an input file.
+
+
