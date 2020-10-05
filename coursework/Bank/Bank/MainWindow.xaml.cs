@@ -25,9 +25,13 @@ namespace Bank
             InitializeComponent();
         }
 
+        // Message Botton Event
         private void Button_Message_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Ciaone", "MESSAGGIO PER TE");
+            // MessageBox.Show("Ciaone", "MESSAGGIO PER TE");
+            SendMessage objectSendMessage = new SendMessage();
+            this.Visibility = Visibility.Hidden;
+            objectSendMessage.Show();
         }
 
         private void Button_File_Click(object sender, RoutedEventArgs e)

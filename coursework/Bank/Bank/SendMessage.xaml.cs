@@ -22,15 +22,24 @@ namespace Bank
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        // Clear botton event 
+        private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             txtBoxMessage.Text = "";
             txtBoxSender.Text = "";
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private bool isInputEmpty()
         {
-           
+            if (txtBoxMessage.Text == "" || txtBoxSender.Text == "")
+                return false; 
+        }
+
+        // Send button Event 
+        private void Button_Send_Click(object sender, TextChangedEventArgs e)
+        {
+            if (!isInputEmpty())
+                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
         }
     }
 }
