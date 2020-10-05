@@ -17,3 +17,5 @@ H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\Bank.cs
 H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\Bank.dll
 H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\Bank.pdb
 H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\Bank.genruntimeconfig.cache
+H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\SendMessage.g.cs
+H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\SendMessage.baml
