@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\Bank\obj\Release\netcoreapp3.1\
 Bank
 none
 false
-TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
+TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1
 C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\Bank\App.xaml
 2-2070090836
 

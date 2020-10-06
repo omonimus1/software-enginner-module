@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\coursework",
     "\\coursework\\Application",
     "\\media",
+    "\\week1",
     "\\week6"
   ],
-  "SelectedNode": "\\coursework\\Application\\Application.sln",
+  "SelectedNode": "\\week1",
   "PreviewInSolutionExplorer": false
 }
