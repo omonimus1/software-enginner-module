@@ -17,29 +17,47 @@ namespace Bank
     /// </summary>
     public partial class SendMessage : Window
     {
+        private string TextMessage;
+
         public SendMessage()
         {
             InitializeComponent();
         }
 
-        // Clear botton event 
+        private void txtBoxSender_TextChanged(object sender, EventArgs e)
+        {
+            this.TextMessage = txtBoxSender.Text;
+        }
+
+
+        private void TextBoxMessage_TextChanged(object sender, EventArgs e)
+        {
+            this.TextMessage = txtBoxMessage.Text;
+        }
+        /*
+        private bool isInputEmpty()
+        {
+            if (txtBoxMessage.Text == "" || txtBoxSender.Text == "")
+                return false; 
+        }  */
+
+        // Send button Event 
+        private void Button_Send_Click(object sender, RoutedEventArgs e)
+        {
+            //if (!isInputEmpty())
+             MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
+        }
+
+        // Set textboxes as empty string
         private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             txtBoxMessage.Text = "";
             txtBoxSender.Text = "";
         }
 
-        private bool isInputEmpty()
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtBoxMessage.Text == "" || txtBoxSender.Text == "")
-                return false; 
-        }
 
-        // Send button Event 
-        private void Button_Send_Click(object sender, TextChangedEventArgs e)
-        {
-            if (!isInputEmpty())
-                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
         }
     }
 }
