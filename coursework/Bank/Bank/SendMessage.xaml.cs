@@ -24,31 +24,51 @@ namespace Bank
             InitializeComponent();
         }
 
+        /*
+         * txtBoxSender_TextChanger(): Will keep the form open while user is typing the sender
+         */
         private void txtBoxSender_TextChanged(object sender, EventArgs e)
         {
             this.TextMessage = txtBoxSender.Text;
         }
 
-
+        /*
+         * TextBoxMessage_TextChange(): Will keep the form open while user is typing
+         */
         private void TextBoxMessage_TextChanged(object sender, EventArgs e)
         {
             this.TextMessage = txtBoxMessage.Text;
         }
+        
         /*
+         * isInputEmpty() : return true if the header, Message or Both are empty, false otherwise. 
+         */
         private bool isInputEmpty()
         {
             if (txtBoxMessage.Text == "" || txtBoxSender.Text == "")
+                return true;
+            else
                 return false; 
-        }  */
-
-        // Send button Event 
-        private void Button_Send_Click(object sender, RoutedEventArgs e)
-        {
-            //if (!isInputEmpty())
-             MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
         }
 
-        // Set textboxes as empty string
+        /*
+         * 
+         */
+        private void Button_Send_Click(object sender, RoutedEventArgs e)
+        {
+            if (isInputEmpty())
+                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
+            else
+            {
+                MessageBox.Show("All good", "Fine");
+                // Start to validate now the messages
+            }
+                
+        }
+
+        /*
+         * 
+         */
         private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             txtBoxMessage.Text = "";
