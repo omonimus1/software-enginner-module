@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\coursework\\Application",
     "\\media",
     "\\week1",
+    "\\week1\\Week1Project",
+    "\\week1\\Week1Project\\Properties",
+    "\\week1\\Week1Project\\ViewModels",
     "\\week6"
   ],
-  "SelectedNode": "\\week1",
+  "SelectedNode": "\\week1\\Week1Project\\MainWindow.xaml",
   "PreviewInSolutionExplorer": false
 }
