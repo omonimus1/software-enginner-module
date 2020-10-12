@@ -13,7 +13,7 @@ namespace OrderSystem.ViewModels
 
         public void OnChange(string name)
         {
-            PropertyChanged(this, new PropertyChangingEventArgs(name));
+            PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
     }
 }

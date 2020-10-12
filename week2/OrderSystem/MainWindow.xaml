@@ -11,9 +11,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
 
-            </ColumnDefinition Width="5*"/>
-        
-        <!--Column 1-->
+            <ColumnDefinition Width="5*" />
+         </Grid.ColumnDefinitions>
+
+            <!--Column 1-->
             <DockPanel Grid.Column="0" Margin="5 5" Background="AliceBlue">
                 <StackPanel>
                     <Button Content="{Binding AddOrderButtonContent}" Command="{Binding AddOrderButtonCommand}" Margin="2 2 2 10"/>
@@ -22,11 +23,7 @@
             </DockPanel>
 
            <!--Columns 2-->
-            <ContentControl Grid.Column="1" Margin="5  5"/>
+            <ContentControl Content="{Binding ContentControlBinding}" Grid.Column="1" Margin="5  5"/>
     </Grid>
-    
-    
-    
-    
     
 </Window>

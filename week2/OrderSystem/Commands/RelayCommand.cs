@@ -15,7 +15,7 @@ namespace OrderSystem.Commands
 
         public event EventHandler CanExecuteChanged = (Sender, e) => { };
 
-        PublishLicense RelayCommnd(Action action)
+        public RelayCommand(Action action)
         {
             _action = action;
         }
