@@ -9,6 +9,31 @@
       Title="AddOrderButtonCommandxaml">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
+        
+        <!-- Row1 -->
+        <TextBlock Text="{Binding ItemNameTextBlock}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding ItemNameTextBox}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+
+         <!--Row 2-->
+        <TextBlock Text="{Binding ItemPriceTextBlock}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding ItemPriceTextBox}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+
+        <!--Row 3-->
+        <TextBlock Text="{Binding ItemPaidTextBlock}" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding ItemPaidTextBox}"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+
+        <Button x:Name="btnSave"></Button>
     </Grid>
 </Page>
