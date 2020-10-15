@@ -95,7 +95,22 @@ namespace Bank
          */
         private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
-
+           // Dictionary<string, string> result;
+            StreamReader sr = new StreamReader(@"../../../"+path_abbreviation_list);
+            string strline = "";
+            string[] _values = null;
+            int x = 0;
+            while (!sr.EndOfStream)
+            {
+                x++;
+                strline = sr.ReadLine();
+                _values = strline.Split(',');
+                if (_values.Length >= 2 && _values[0].Trim().Length > 0)
+                {
+                    MessageBox.Show(_values[1]);
+                }
+            }
+            sr.Close();
             bool isExists = path_abbreviation_list.Split(',').Any(x => x == "Always a pleasure");
 
             if (isExists) {
