@@ -41,7 +41,7 @@ namespace Bank
         {
             this.TextMessage = txtBoxMessage.Text;
         }
-        
+
         /*
          * isInputEmpty() : return true if the header, Message or Both are empty, false otherwise. 
          */
@@ -50,7 +50,7 @@ namespace Bank
             if (txtBoxMessage.Text == "" || txtBoxSender.Text == "")
                 return true;
             else
-                return false; 
+                return false;
         }
 
         /*
@@ -77,7 +77,7 @@ namespace Bank
 
                 //  https://stackoverflow.com/questions/16921652/how-to-write-a-json-file-in-c
                 // Create an object on the go using Anonymous type, with the 3 propeties
-                var message = new { header =txtBoxSender.Text, Message = txtBoxMessage.Text, category = "random_category" };
+                var message = new { header = txtBoxSender.Text, Message = txtBoxMessage.Text, category = "random_category" };
                 // serialize JSON to a string and then write string to a file
                 object p = File.WriteAllText(@"c:\movie.json", JsonConvert.SerializeObject(message));
                 // serialize JSON directly to a file
@@ -105,18 +105,41 @@ namespace Bank
         }
 
 
-        private void is_a_message()
+        /*
+         * is_a_message(): returns true if the sender id is the phone number of the
+         * text message sender; 
+         * Rederence international phone number format: 
+         * https://www.cm.com/blog/how-to-format-international-telephone-numbers/
+         */
+        private bool is_a_message(string sender)
         {
-            /*
-             * ⦁	SMS message bodies comprise Sender in the form of an international telephone phone number followed by the Message Text which 
-             * is a maximum of 140 characters long. The Message Text message is simple text but may contain embedded “textspeak abbreviations”. 
-             * Details of the textspeak abbreviations that may be embedded are supplied on Moodle in the form of a CSV file.
-
-             */
+            int len = sender.Length;
+            // Check if phone number has more than 15 characters/digits
+            if (len > 15 || sender == "")
+                return false;
+            // https://stackoverflow.com/questions/12884610/how-to-check-if-a-string-contains-any-letter-from-a-to-z
+            bool contains_letter = sender.Any(x => !char.IsLetter(x));
+            if (contains_letter == true)
+                return false;
+            // The phone numer has been correctly validated
+            else
+                return true;
         }
 
-        private void is_an_email()
+        /*
+         * 
+         */
+        private bool is_an_email(string email)
         {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
             /*
              * ⦁	Email message bodies comprise Sender in the form of a standard email address John Smith ⦁	
              * john.smith@example.org followed by a 20 character Subject followed by the Message Text which is a
@@ -128,8 +151,16 @@ namespace Bank
 
         }
 
-        private void is_a_twittt()
+        /*
+         * is_a_tweet(): return true if the sender is the id of a twitter profile
+         * A twitter sender starts with 'a'
+         */
+        private bool is_a_tweet(string sender)
         {
+            if (sender[0] == '@')
+                return true;
+            else
+                return false; 
             /*
              * ⦁	Tweet bodies comprise Sender in the form of a Twitter ID: “@” followed by a maximum of 15 characters (e.g. @JohnSmith) and the Tweet text which is a maximum of 140 characters long. In addition to ordinary text the Tweet text may contain any of the following:
                 ⦁	textspeak abbreviations (as in SMS above)

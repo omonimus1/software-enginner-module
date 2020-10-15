@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "H:\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj": {}
+    "C:\\Users\\pc\\Desktop\\dev\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj": {}
   },
   "projects": {
-    "H:\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj": {
+    "C:\\Users\\pc\\Desktop\\dev\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Desktop\\dev\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj",
         "projectName": "Bank",
-        "projectPath": "H:\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj",
-        "packagesPath": "C:\\Users\\40401270\\.nuget\\packages\\",
-        "outputPath": "H:\\software-enginner-module\\coursework\\Bank\\Bank\\obj\\",
+        "projectPath": "C:\\Users\\pc\\Desktop\\dev\\software-enginner-module\\coursework\\Bank\\Bank\\Bank.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pc\\Desktop\\dev\\software-enginner-module\\coursework\\Bank\\Bank\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\40401270\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
