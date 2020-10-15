@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Shapes;
 using System.Xml;
 
@@ -95,30 +96,6 @@ namespace Bank
          */
         private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
-           // Dictionary<string, string> result;
-            StreamReader sr = new StreamReader(@"../../../"+path_abbreviation_list);
-            string strline = "";
-            string[] _values = null;
-            int x = 0;
-            while (!sr.EndOfStream)
-            {
-                x++;
-                strline = sr.ReadLine();
-                _values = strline.Split(',');
-                if (_values.Length >= 2 && _values[0].Trim().Length > 0)
-                {
-                    MessageBox.Show(_values[1]);
-                }
-            }
-            sr.Close();
-            bool isExists = path_abbreviation_list.Split(',').Any(x => x == "Always a pleasure");
-
-            if (isExists) {
-                MessageBox.Show("Ottimo, c'e'");
-            }
-            else
-                MessageBox.Show("No, non e qua'");
-
             string header = txtBoxSender.Text;
             string message = txtBoxMessage.Text;
             if (isInputEmpty(header, message))
@@ -160,15 +137,6 @@ namespace Bank
 
                     // Expand abbreviations
                     // path_abbreviation_list
-
-                }
-                // We are managing mesage types
-                else
-                {
-                    // Process storage and check if abbreviations needs to be extended
-
-                    // So, iterate to all the message, and fetch all possible words. 
-                    // build the possible current word while we are having UPPERCASE letter and '/' chars
                     string possible_abbreviation = "";
                     for (int i = 0; i < len_message; i++)
                     {
@@ -182,10 +150,39 @@ namespace Bank
                         // Now, we have the possible abbreviation; 
                         // If abbreviation is empty skype
                         if (possible_abbreviation == "" || possible_abbreviation == " ")
-                            continue; 
+                            continue;
                         // Check if abbreviation is inside the CVS file:
-
+                        StreamReader sr = new StreamReader(@"../../../" + path_abbreviation_list);
+                        string strline = "";
+                        string[] _values = null;
+                        int x = 0;
+                        while (!sr.EndOfStream)
+                        {
+                            x++;
+                            strline = sr.ReadLine();
+                            _values = strline.Split(',');
+                            // print Any day Now, the extension of ADN
+                            // thjebug weith "ADN" instead possible_abbreviation eventually
+                            if (_values[0] == possible_abbreviation)
+                            {
+                                MessageBox.Show(_values[1]);
+                                // Here add the enxtation with this structure: <FullExtansion>
+                                string extended_abbreviation = " <" + _values[1] + "> ";
+                                // Add the entended appreviation at the position of where we found them 
+                                message.Insert(i, extended_abbreviation);
+                            }
+                        }
+                        sr.Close();
                     }
+                }
+                // We are managing mesage types
+                else
+                {
+                    // Process storage and check if abbreviations needs to be extended
+
+                    // So, iterate to all the message, and fetch all possible words. 
+                    // build the possible current word while we are having UPPERCASE letter and '/' chars
+
                 }
 
             }
