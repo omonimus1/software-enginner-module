@@ -101,7 +101,7 @@ namespace Bank {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Bank;V1.0.0.0;component/sendmessage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Bank;component/sendmessage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SendMessage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

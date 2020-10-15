@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-H:\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\
-Bank_jttcfl32_wpftmp
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\Bank\obj\Debug\netcoreapp3.1\
+Bank
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
-H:\software-enginner-module\coursework\Bank\Bank\App.xaml
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\Bank\App.xaml
 2-2070090836
 
-7-1965577785
-1921654412462
+4-1896271276
+193944428072
 MainWindow.xaml;SendMessage.xaml;
 
-True
+False
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,16 @@ namespace Bank
     public partial class SendMessage : Window
     {
         private string TextMessage;
+        // Path to the cvs file that contains all the possible abbreviations 
+        // and their extented meaning
+        private string path_abbreviation_list = "App_Data/textwords.csv";
+
+
+        // Create and store all the content of the cvs file, in an unordered_map; 
+        Dictionary<string, string> map = new Dictionary<string, string>(); 
+
+
+
 
         public SendMessage()
         {
@@ -45,47 +56,123 @@ namespace Bank
         /*
          * isInputEmpty() : return true if the header, Message or Both are empty, false otherwise. 
          */
-        private bool isInputEmpty()
+        private bool isInputEmpty(string sender, string message)
         {
-            if (txtBoxMessage.Text == "" || txtBoxSender.Text == "")
+            if (sender == "" || sender == " ")
                 return true;
+
+            else if (message == "" || message == " ")
+                return true; 
             else
                 return false;
         }
 
         /*
+         * get_message_nature(): return the nature of the message in base header
+         * - Return  1: if the header is of a mobile phone 
+         * - Return  2: if the header is an email address
+         * - Return  3: if the header is from a twitter user
+         * - Return 999: if the header type has not been recognised
+         */
+        int get_message_nature(string header)
+        {
+            if (is_a_message(header))
+                return 1;
+            else if (is_a_message(header))
+                return 2;
+            else if (is_a_tweet(header))
+                return 3;
+            else
+                return 999; 
+        }
+
+
+
+        /*
+         *   Button_Send_Click(): used to validate the input received
+         *   and store them if necessary
          * 
          */
-        private void Button_Send_Click(object sender, RoutedEventArgs e, object JsonConvert)
+        private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
-            if (isInputEmpty())
+
+            bool isExists = path_abbreviation_list.Split(',').Any(x => x == "Always a pleasure");
+
+            if (isExists) {
+                MessageBox.Show("Ottimo, c'e'");
+            }
+            else
+                MessageBox.Show("No, non e qua'");
+
+            string header = txtBoxSender.Text;
+            string message = txtBoxMessage.Text;
+            if (isInputEmpty(header, message))
+            {
                 MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
+                return;
+            }
+            // Start validation process
             else
             {
-                MessageBox.Show("All good", "Fine");
-                // Start to validate now the messages
-                // Try code to actually store the message in the json file. 
-                /*var array = new[] { obj };
-                string json = Newtonsoft.Json.JsonConvert.SerializeObject(array);
-                string path = "../App_Data/data.json";
-                //// Write that JSON to txt file,  
-                //var read = System.IO.File.ReadAllText(path + "output.json");
-                System.IO.File.WriteAllText(path + "output.json", json);
-                return View();
-                */
+                // MessageBox.Show("All good", "Fine");
+                int message_type = get_message_nature(header);
 
-
-                //  https://stackoverflow.com/questions/16921652/how-to-write-a-json-file-in-c
-                // Create an object on the go using Anonymous type, with the 3 propeties
-                var message = new { header = txtBoxSender.Text, Message = txtBoxMessage.Text, category = "random_category" };
-                // serialize JSON to a string and then write string to a file
-                object p = File.WriteAllText(@"c:\movie.json", JsonConvert.SerializeObject(message));
-                // serialize JSON directly to a file
-                using (StreamWriter file = File.CreateText(@"c:\movie.json"))
+                // Check if message type has not been recognized. 
+                if (message_type == 999)
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(file, movie);
+                    // Print error message, and stop the execution of the function 
+                    MessageBox.Show("The nature of the message that you have innserte, has now been recognized");
                 }
+                int len_message = message.Length;
+                if (message_type == 2 && len_message > 1028 || message_type != 2 && len_message > 140)
+                {
+                    MessageBox.Show("Your messsage is too long");
+                    return;
+                }
+
+                // Manage twitter message (it may contains SMS abbreviation
+                if (message_type == 3)
+                {
+
+                }
+                // Manage text message type
+                else if (message_type == 1)
+                {
+                    // Process storage and check if abbreviations needs to be extended
+                    // Process storage and check if abbreviations needs to be extended
+                    /* “Saw your message ROFL can’t wait to see you” becomes “Saw your message 
+                     * ROFL<Rolls on the floor laughing> can’t wait to see you” */
+
+                    // Expand abbreviations
+                    // path_abbreviation_list
+
+                }
+                // We are managing mesage types
+                else
+                {
+                    // Process storage and check if abbreviations needs to be extended
+
+                    // So, iterate to all the message, and fetch all possible words. 
+                    // build the possible current word while we are having UPPERCASE letter and '/' chars
+                    string possible_abbreviation = "";
+                    for (int i = 0; i < len_message; i++)
+                    {
+                        possible_abbreviation = "";
+                        while (i < len_message)
+                        {
+                            if (message[i] >= 'A' && message[i] <= 'Z' || message[i] == '/')
+                                possible_abbreviation += message[i];
+                            i += 1;
+                        }
+                        // Now, we have the possible abbreviation; 
+                        // If abbreviation is empty skype
+                        if (possible_abbreviation == "" || possible_abbreviation == " ")
+                            continue; 
+                        // Check if abbreviation is inside the CVS file:
+
+                    }
+                }
+
             }
 
         }
@@ -140,15 +227,6 @@ namespace Bank
             {
                 return false;
             }
-            /*
-             * ⦁	Email message bodies comprise Sender in the form of a standard email address John Smith ⦁	
-             * john.smith@example.org followed by a 20 character Subject followed by the Message Text which is a
-             * maximum of 1028 characters long. The Message Text message is simple text but may contain embedded 
-             * hyperlinks in the form of standard URLs e.g. http:\\www.anywhere.com. Further detail of email messages 
-             * is provided in 3.1.2 below.
-             */
-
-
         }
 
         /*
