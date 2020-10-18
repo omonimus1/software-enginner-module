@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Bank
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
         private string path_abbreviation_list = "App_Data/textwords.csv";
+        private string path_storage_messages = "App_Data/data.json";
 
         // Existing Category of important email 
         string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
@@ -70,13 +72,13 @@ namespace Bank
          * - Return  3: if the header is from a twitter user
          * - Return 999: if the header type has not been recognised
          */
-        int   get_message_nature(string header)
+        int  get_message_nature(string header)
         {
             if (is_a_message(header))
                 return 1;
             else if (is_an_email(header))
             {
-                // Understand  Nature of the email 
+                return 2;
             }
             else if (is_a_tweet(header))
                 return 3;
@@ -84,7 +86,7 @@ namespace Bank
                 return 999; 
         }
 
-
+        /*
         string get_email_type(char header)
         {
             // Check for Significant Incident Reports
@@ -93,9 +95,9 @@ namespace Bank
             // create and return a pair<string, string>: <email_type-category>
 
             // This zero, will be the index of the array of impiortant email categories; 
-            Tuple<string, int> t = new Tuple<string, int>("Hello", 0);
-
-        }
+            //Tuple<string, int> t = new Tuple<string, int>("Hello", 0);
+            
+        }*/
 
         string extend_any_abbreviation(string message, int len_message)
         {
@@ -171,7 +173,8 @@ namespace Bank
                         // Remove the URL string and substitute it with “<URL Quarantined>";
                         // Substitute substring from position_possible_url to i :  URL....
                         //ReplaceAt(int index, int length, string replace)
-                        message = message.Remove(position_possible_url, position_possible_url.Lenght).Insert(position_possible_url, "<URL Quarantined>");
+                        int len_url = possible_url.Length;
+                        message = message.Remove(position_possible_url, len_url).Insert(position_possible_url, "<URL Quarantined>");
                     }
                 }
             }
@@ -188,12 +191,28 @@ namespace Bank
 
 
         /*
+         * store_data(header, message, category of the message): store data in json file; 
+         */
+        void store_data(string header, string message, string category)
+        {
+            var dynObject = new { header = header, message = message, category = category};
+            string JSONresult = JsonConvert.SerializeObject(dynObject);
+            using (var tw = new StreamWriter(@"../../../"+path_storage_messages, true))
+            {
+                tw.WriteLine(JSONresult.ToString());
+                tw.Close();
+            }
+        }
+
+
+        /*
          *   Button_Send_Click(): used to validate the input received
          *   and store them if necessary
          * 
          */
         private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
+            // store_data("header prova", "messaf", "cia");
             string header = txtBoxSender.Text;
             string message = txtBoxMessage.Text;
             if (isInputEmpty(header, message))
@@ -219,19 +238,27 @@ namespace Bank
                     MessageBox.Show("Your messsage is too long");
                     return;
                 }
+                // Manage an email 
+                // Call function to extend abbreviation
+                string extended_message = extend_any_abbreviation(message, len_message);
+                // Manage link presence
+                extended_message = hide_urls(message, len_message);
 
+                if (message_type == 1)
+                    store_data(header, message, "message");
 
                 // We are Managin an email
-                if(message_type == 2)
+                else if (message_type == 2)
                 {
-                    // Call function to extend abbreviation
-                    string extended_message = extend_any_abbreviation(message, len_message);
-                    // Manage link presence
-                    extended_message = hide_urls(message, len_message);
+
                     // Identify message type: standard - significan Incident Reports
 
                     // Output message (extendend version) and store it in the json file. 
                     MessageBox.Show(extended_message);
+                }
+                else if(message_type == 3)
+                {
+                    store_data(header, message, "twitter");
                 }
 
             }
