@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,12 +27,9 @@ namespace Bank
         // and their extented meaning
         private string path_abbreviation_list = "App_Data/textwords.csv";
 
-
-        // Create and store all the content of the cvs file, in an unordered_map; 
-        Dictionary<string, string> map = new Dictionary<string, string>(); 
-
-
-
+        // Existing Category of important email 
+        string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
+            "suspicious incident", "intelligence", "cash loss"};
 
         public SendMessage()
         {
@@ -59,11 +57,8 @@ namespace Bank
          */
         private bool isInputEmpty(string sender, string message)
         {
-            if (sender == "" || sender == " ")
+            if (string.IsNullOrWhiteSpace(sender) || string.IsNullOrWhiteSpace(message) )
                 return true;
-
-            else if (message == "" || message == " ")
-                return true; 
             else
                 return false;
         }
@@ -75,18 +70,121 @@ namespace Bank
          * - Return  3: if the header is from a twitter user
          * - Return 999: if the header type has not been recognised
          */
-        int get_message_nature(string header)
+        int   get_message_nature(string header)
         {
             if (is_a_message(header))
                 return 1;
-            else if (is_a_message(header))
-                return 2;
+            else if (is_an_email(header))
+            {
+                // Understand  Nature of the email 
+            }
             else if (is_a_tweet(header))
                 return 3;
             else
                 return 999; 
         }
 
+
+        string get_email_type(char header)
+        {
+            // Check for Significant Incident Reports
+            // Significant Incident Reports will have the subject iont he form: "SIR dd/mm/yy"
+
+            // create and return a pair<string, string>: <email_type-category>
+
+            // This zero, will be the index of the array of impiortant email categories; 
+            Tuple<string, int> t = new Tuple<string, int>("Hello", 0);
+
+        }
+
+        string extend_any_abbreviation(string message, int len_message)
+        {
+            // Check if abbreviation is inside the CVS file:
+            StreamReader sr = new StreamReader(@"../../../" + path_abbreviation_list);
+            string possible_abbreviation = "";
+            for (int i = 0; i < len_message; i++)
+            {
+                possible_abbreviation = "";
+                while (i < len_message)
+                {
+                    if (message[i] >= 'A' && message[i] <= 'Z' || message[i] == '/')
+                        possible_abbreviation += message[i];
+                    i += 1;
+                }
+                // Now, we have the possible abbreviation; 
+                // If abbreviation is empty skype
+                if (string.IsNullOrWhiteSpace(possible_abbreviation) || possible_abbreviation.Length == 1) 
+                    continue;
+                string strline = "";
+                string[] _values = null;
+                int x = 0;
+                while (!sr.EndOfStream)
+                {
+                    x++;
+                    strline = sr.ReadLine();
+                    _values = strline.Split(',');
+                    // print Any day Now, the extension of ADN
+                    // thjebug weith "ADN" instead possible_abbreviation eventually
+                    if (_values[0] == possible_abbreviation)
+                    {
+                        MessageBox.Show(_values[1]);
+                        // Here add the enxtation with this structure: <FullExtansion>
+                        string extended_abbreviation = " <" + _values[1] + "> ";
+                        // Add the entended appreviation at the position of where we found them 
+                        message.Insert(i, extended_abbreviation);
+                    }
+                }
+                
+            }
+            // Close file stream after have checked all possible abbreviations
+            sr.Close();
+            // Return extended vertsion of the message. 
+            return message; 
+        }
+
+        string hide_urls(string message, int len_message)
+        {
+            string possible_url;
+            int position_possible_url;
+            for(int i =0; i < len_message; i++)
+            {
+                possible_url = "";
+                // Start index of the possible URL; 
+                position_possible_url = i;
+                
+
+                while(i< len_message && message[i] >= 'a' && message[i] <= 'z')
+                {
+                    possible_url += message[i];
+                    i += 1; 
+                }
+                // We are possibly at the of the url; 
+                if (string.IsNullOrWhiteSpace(possible_url))
+                    continue;
+                else
+                {
+                    // Check if the current substring is a string
+                    if (!IsHttpUrl(possible_url))
+                        continue;
+                    else
+                    {
+                        // Remove the URL string and substitute it with “<URL Quarantined>";
+                        // Substitute substring from position_possible_url to i :  URL....
+                        //ReplaceAt(int index, int length, string replace)
+                        message = message.Remove(position_possible_url, position_possible_url.Lenght).Insert(position_possible_url, "<URL Quarantined>");
+                    }
+                }
+            }
+            return message; 
+        }
+
+        /*
+         * IsHttpUrl(string:: url) return true if the string provided in input is a link; 
+         */
+        private bool IsHttpUrl(string url)
+        {
+            return ((!string.IsNullOrWhiteSpace(url)) && (url.ToLower().StartsWith("http")));
+        }
 
 
         /*
@@ -106,7 +204,7 @@ namespace Bank
             // Start validation process
             else
             {
-                // MessageBox.Show("All good", "Fine");
+                // Understand message type: Twitte, message, email, NONE (not indified)
                 int message_type = get_message_nature(header);
 
                 // Check if message type has not been recognized. 
@@ -122,75 +220,25 @@ namespace Bank
                     return;
                 }
 
-                // Manage twitter message (it may contains SMS abbreviation
-                if (message_type == 3)
+
+                // We are Managin an email
+                if(message_type == 2)
                 {
+                    // Call function to extend abbreviation
+                    string extended_message = extend_any_abbreviation(message, len_message);
+                    // Manage link presence
+                    extended_message = hide_urls(message, len_message);
+                    // Identify message type: standard - significan Incident Reports
 
-                }
-                // Manage text message type
-                else if (message_type == 1)
-                {
-                    // Process storage and check if abbreviations needs to be extended
-                    // Process storage and check if abbreviations needs to be extended
-                    /* “Saw your message ROFL can’t wait to see you” becomes “Saw your message 
-                     * ROFL<Rolls on the floor laughing> can’t wait to see you” */
-
-                    // Expand abbreviations
-                    // path_abbreviation_list
-                    string possible_abbreviation = "";
-                    for (int i = 0; i < len_message; i++)
-                    {
-                        possible_abbreviation = "";
-                        while (i < len_message)
-                        {
-                            if (message[i] >= 'A' && message[i] <= 'Z' || message[i] == '/')
-                                possible_abbreviation += message[i];
-                            i += 1;
-                        }
-                        // Now, we have the possible abbreviation; 
-                        // If abbreviation is empty skype
-                        if (possible_abbreviation == "" || possible_abbreviation == " ")
-                            continue;
-                        // Check if abbreviation is inside the CVS file:
-                        StreamReader sr = new StreamReader(@"../../../" + path_abbreviation_list);
-                        string strline = "";
-                        string[] _values = null;
-                        int x = 0;
-                        while (!sr.EndOfStream)
-                        {
-                            x++;
-                            strline = sr.ReadLine();
-                            _values = strline.Split(',');
-                            // print Any day Now, the extension of ADN
-                            // thjebug weith "ADN" instead possible_abbreviation eventually
-                            if (_values[0] == possible_abbreviation)
-                            {
-                                MessageBox.Show(_values[1]);
-                                // Here add the enxtation with this structure: <FullExtansion>
-                                string extended_abbreviation = " <" + _values[1] + "> ";
-                                // Add the entended appreviation at the position of where we found them 
-                                message.Insert(i, extended_abbreviation);
-                            }
-                        }
-                        sr.Close();
-                    }
-                }
-                // We are managing mesage types
-                else
-                {
-                    // Process storage and check if abbreviations needs to be extended
-
-                    // So, iterate to all the message, and fetch all possible words. 
-                    // build the possible current word while we are having UPPERCASE letter and '/' chars
-
+                    // Output message (extendend version) and store it in the json file. 
+                    MessageBox.Show(extended_message);
                 }
 
             }
-
         }
 
         /*
-         * 
+         * Button_Clear_Click(): remove any content insered in the message form
          */
         private void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
@@ -250,13 +298,7 @@ namespace Bank
             if (sender[0] == '@')
                 return true;
             else
-                return false; 
-            /*
-             * ⦁	Tweet bodies comprise Sender in the form of a Twitter ID: “@” followed by a maximum of 15 characters (e.g. @JohnSmith) and the Tweet text which is a maximum of 140 characters long. In addition to ordinary text the Tweet text may contain any of the following:
-                ⦁	textspeak abbreviations (as in SMS above)
-                ⦁	hashtags  - strings of characters preceded by a ‘#’ sign that are used to group posts by topic. (such as #BBCClick, #1Donice). 
-                ⦁	Twitter IDs as above
-             */
+                return false;
         }
     }
 }
