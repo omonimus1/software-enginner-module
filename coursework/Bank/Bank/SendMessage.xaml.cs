@@ -28,8 +28,8 @@ namespace Bank
         // and their extented meaning
         private string path_abbreviation_list = "App_Data/textwords.csv";
         private string path_storage_messages = "App_Data/data.json";
-        List<string> hashtag = new List<string>();
-        List<string> urls = new List<string>(); 
+        Dictionary<string, int> hashtag = new Dictionary<string, int>();
+        List<string> urls = new List<string>();
 
         // Existing Category of important email 
         string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
@@ -61,7 +61,7 @@ namespace Bank
          */
         private bool isInputEmpty(string sender, string message)
         {
-            if (string.IsNullOrWhiteSpace(sender) || string.IsNullOrWhiteSpace(message) )
+            if (string.IsNullOrWhiteSpace(sender) || string.IsNullOrWhiteSpace(message))
                 return true;
             else
                 return false;
@@ -74,7 +74,7 @@ namespace Bank
          * - Return  3: if the header is from a twitter user
          * - Return 999: if the header type has not been recognised
          */
-        char  get_message_nature(string header)
+        char get_message_nature(string header)
         {
             if (header[0] == 'T')
                 return 'T';
@@ -83,8 +83,8 @@ namespace Bank
             else if (header[0] == 'S')
                 return 'S';
             // Return error message: the type of messager has not been
-            else 
-                return 'N'; 
+            else
+                return 'N';
         }
 
 
@@ -105,7 +105,7 @@ namespace Bank
                 }
                 // Now, we have the possible abbreviation; 
                 // If abbreviation is empty skype
-                if (string.IsNullOrWhiteSpace(possible_abbreviation) || possible_abbreviation.Length == 1) 
+                if (string.IsNullOrWhiteSpace(possible_abbreviation) || possible_abbreviation.Length == 1)
                     continue;
                 string strline = "";
                 string[] _values = null;
@@ -126,29 +126,29 @@ namespace Bank
                         message.Insert(i, extended_abbreviation);
                     }
                 }
-                
+
             }
             // Close file stream after have checked all possible abbreviations
             sr.Close();
             // Return extended vertsion of the message. 
-            return message; 
+            return message;
         }
 
         string hide_urls(string message, int len_message)
         {
             string possible_url;
             int position_possible_url;
-            for(int i =0; i < len_message; i++)
+            for (int i = 0; i < len_message; i++)
             {
                 possible_url = "";
                 // Start index of the possible URL; 
                 position_possible_url = i;
-                
 
-                while(i< len_message && message[i] >= 'a' && message[i] <= 'z')
+
+                while (i < len_message && message[i] >= 'a' && message[i] <= 'z')
                 {
                     possible_url += message[i];
-                    i += 1; 
+                    i += 1;
                 }
                 // We are possibly at the of the url; 
                 if (string.IsNullOrWhiteSpace(possible_url))
@@ -169,7 +169,7 @@ namespace Bank
                     }
                 }
             }
-            return message; 
+            return message;
         }
 
         /*
@@ -188,16 +188,16 @@ namespace Bank
         {
             // Add also LIST OF string, store them and then clear them out; (if message is a twitter, 
             // store list of hashtag, store list of urls otherwise; 
-            var dynObject = new { header = header, message = message, category = category, hashtag_list = hashtag, urls_list = urls};
+            var dynObject = new { header = header, message = message, category = category, hashtag_list = hashtag, urls_list = urls };
             string JSONresult = JsonConvert.SerializeObject(dynObject);
-            using (var tw = new StreamWriter(@"../../../"+path_storage_messages, true))
+            using (var tw = new StreamWriter(@"../../../" + path_storage_messages, true))
             {
                 tw.WriteLine(JSONresult.ToString());
                 tw.Close();
             }
             // check which categoruy is it, and then do the clening
             urls.Clear();
-            hashtag.Clear(); 
+            hashtag.Clear();
         }
 
         bool IsValidEmail(string possible_email)
@@ -209,7 +209,7 @@ namespace Bank
             }
             catch
             {
-                return false; 
+                return false;
             }
         }
 
@@ -225,14 +225,14 @@ namespace Bank
                     word += message[i];
                     i += 1;
                 }
-                if (! string.IsNullOrWhiteSpace(word))
+                if (!string.IsNullOrWhiteSpace(word))
                 {
                     if (IsValidEmail(word))
-                        return word; 
+                        return word;
                 }
             }
             // No EMAIL Id has been found; 
-            return "NOT EMAIL ID FOUND"; 
+            return "NOT EMAIL ID FOUND";
         }
 
         string GetTwitterUserID(string message, int len_message)
@@ -241,7 +241,7 @@ namespace Bank
             // Iterate inside the message, check if any word is an email, if yes, return it. 
             for (int i = 0; i < len_message; i++)
             {
-                twitter_id  = "";
+                twitter_id = "";
                 while (i < len_message && message[i] != ' ')
                 {
                     twitter_id += message[i];
@@ -261,28 +261,34 @@ namespace Bank
         {
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
-            for(int i =0; i < len_message; i++)
+            for (int i = 0; i < len_message; i++)
             {
                 possible_hashtag = "";
-                while(i < len_message && message[i] != ' ')
+                while (i < len_message && message[i] != ' ')
                 {
                     possible_hashtag += message[i];
-                    i += 1; 
+                    i += 1;
                 }
                 // If string is NOT null and is NOT  whitespace
-                if(! string.IsNullOrWhiteSpace(possible_hashtag))
+                if (!string.IsNullOrWhiteSpace(possible_hashtag))
                 {
                     // Check if string has Lenght >=2 and stars with '#';
                     if (possible_hashtag.Length >= 2 && possible_hashtag[0] == '#')
-                        hashtag.Add(possible_hashtag);
+                        hashtag[possible_hashtag]++;
                 }
             }
+        }
+
+
+        void print_all_input(string sender_id, string header, string message, char category)
+        {
+            // Print in MessageBox: sender_id(email/twitterID/mobile phone), header, message, category; 
+            // If category is 'T', shows also the hashtag lists
         }
 
         /*
          *   Button_Send_Click(): used to validate the input received
          *   and store them if necessary
-         * 
          */
         private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
@@ -336,10 +342,16 @@ namespace Bank
                 }
                 else if(message_type == 'T')
                 {
+
+                    // Extend messager abbreviation; 
+                    // Extend messager abbreviation; 
+                    message = extend_any_abbreviation(message, len_message);
+                    
                     // search ID twitter user in the body
                     sender = GetTwitterUserID(message, len_message);
                     // search all hashtag and store them in a list;
                     StoreListOfHashtag(message, len_message);
+ 
                     // Store message in json file 
                     store_data(sender, message, message_type);
                 }
