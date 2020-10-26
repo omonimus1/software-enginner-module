@@ -176,11 +176,8 @@ namespace Bank
                         urls.Add(possible_url);
                         message_without_link = message.Replace(possible_url, "<URL Quarantined>");
                         //var replacement = source.Replace("mountains", "peaks");
+                   
                     }
-                    
-                    message_without_link = Regex.Replace(message_without_link,
-                @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
-                "<a target='_blank' href='$1'>$1</a>"); 
                 }
             }
             return message_without_link;   
@@ -204,26 +201,36 @@ namespace Bank
         }
 
 
-        void PrintCategorisedData (string header, string message, char category)
+        void PrintCategorisedData (string header, string sender,  string message, char category)
         {
             // MessageBox.Show(oggetto.message);
-            MessageBox.Show("Message ID: " + header + Environment.NewLine + "Message body: " + message + Environment.NewLine + "Category: " +
-                category +
-                Environment.NewLine + string.Join(Environment.NewLine, hashtag) + Environment.NewLine + string.Join(Environment.NewLine, urls)
+            MessageBox.Show("Message ID: " + header
+                + Environment.NewLine  
+                + "Sender: " + sender  
+                + Environment.NewLine 
+                + "Message body: " + message 
+                + Environment.NewLine 
+                + "Category: " +  category 
+                + Environment.NewLine 
+                + string.Join(Environment.NewLine, hashtag) 
+                + Environment.NewLine 
+                + string.Join(Environment.NewLine, urls)
             );
         }
 
         /*
          * store_data(header, message, category of the message): store data in json file; 
          */
-        void store_data(string header, string message, char category)
+        void store_data(string header,string sender,  string message, char category)
         {
             // Print valided and categorised data to user before store them in json; 
-            PrintCategorisedData(header, message, category);
+            PrintCategorisedData(header,sender,  message, category);
 
             // Add also LIST OF string, store them and then clear them out; (if message is a twitter) 
             // store list of hashtag, store list of urls otherwise; 
-            var dynObject = new { header = header, message = message, category = category, hashtag_list = hashtag, urls_list = urls };
+            var dynObject = new { header = header, message = message, category = category, 
+                sender = sender, 
+                hashtag_list = hashtag, urls_list = urls };
             
             string JSONresult = JsonConvert.SerializeObject(dynObject);
             using (var tw = new StreamWriter(@"../../../" + path_storage_messages, true))
@@ -293,6 +300,33 @@ namespace Bank
             return "NOT TWITTER USER ID FOUND";
         }
 
+        public static bool IsPhoneNumber(string number)
+        {
+            return Regex.Match(number, @"^(\+[0-9]{9})$").Success;
+        }
+
+        string GetMobilePhoneSender(string message, int len_message)
+        {  
+            string possible_number;
+            for (int i = 0; i < len_message; i++)
+            {
+                possible_number = "";
+                while (i < len_message && Char.IsDigit(message[i]) || i < len_message && message[i] == '+') 
+                {
+                    possible_number += message[i];
+                    i += 1; 
+                }
+                if(!string.IsNullOrWhiteSpace(possible_number))
+                {
+                    if (IsPhoneNumber(possible_number))
+                        return possible_number;
+                }
+
+            }
+
+            return "Unkown mobile phone number";
+        }
+
         void StoreListOfHashtag(string message, int len_message)
         {
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
@@ -329,11 +363,11 @@ namespace Bank
          */
         private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
-            string header = txtBoxSender.Text;
+            string message_id = txtBoxSender.Text;
             string message = txtBoxMessage.Text;
 
-            string message_sender = "";
-            if (isInputEmpty(header, message))
+            string sender = "Sender unkown";
+            if (isInputEmpty(message_id, message))
             {
                 MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
                 return;
@@ -342,7 +376,7 @@ namespace Bank
             else
             {
                 // Understand message type: Twitte, message, email, NONE (not indified)
-                char message_type = get_message_nature(header);
+                char message_type = get_message_nature(message_id);
                 if(message_type == 'N')
                 {
                     MessageBox.Show("Message nature has not be recognized");
@@ -361,10 +395,13 @@ namespace Bank
                 }
                 else if(message_type == 'S')
                 {
+                    // Search of mobile phone number sender
+                    sender = GetMobilePhoneSender(message, len_message);
+
                     // Extend abbreviatios 
                     message = extend_any_abbreviation(message, len_message);
                     // Store in json file 
-                    store_data(header, message, message_type);
+                    store_data(message_id, sender, message, message_type);
                 }
                 else if(message_type == 'E')
                 {
@@ -375,7 +412,7 @@ namespace Bank
                     // Hide URLs and store them in a list and Store URLS in LIST
                     message  = hide_urls(message, len_message);
                     // Store in json file 
-                    store_data(message_sender, message, message_type);
+                    store_data(message_id, sender, message, message_type);
                 }
                 else if(message_type == 'T')
                 {
@@ -390,7 +427,7 @@ namespace Bank
                     StoreListOfHashtag(message, len_message);
  
                     // Store message in json file 
-                    store_data(message_sender, message, message_type);
+                    store_data(message_id, sender, message, message_type);
                 }
             }
         }
