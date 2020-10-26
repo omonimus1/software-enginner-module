@@ -136,6 +136,7 @@ namespace Bank
 
         string hide_urls(string message, int len_message)
         {
+            var message_without_link = "";
             string possible_url;
             int position_possible_url;
             for (int i = 0; i < len_message; i++)
@@ -143,9 +144,9 @@ namespace Bank
                 possible_url = "";
                 // Start index of the possible URL; 
                 position_possible_url = i;
+                
 
-
-                while (i < len_message && message[i] >= 'a' && message[i] <= 'z')
+                while (i < len_message && message[i] !=  ' ')
                 {
                     possible_url += message[i];
                     i += 1;
@@ -160,16 +161,17 @@ namespace Bank
                         continue;
                     else
                     {
-                        // Remove the URL string and substitute it with “<URL Quarantined>";
+                                                // Remove the URL string and substitute it with “<URL Quarantined>";
                         // Substitute substring from position_possible_url to i :  URL....
                         //ReplaceAt(int index, int length, string replace)
-                        int len_url = possible_url.Length;
+                        // int len_url = possible_url.Length;
                         urls.Add(possible_url);
-                        message = message.Remove(position_possible_url, len_url).Insert(position_possible_url, "<URL Quarantined>");
+                        message_without_link = message.Replace(possible_url, "<URL Quarantined>");
+                        //var replacement = source.Replace("mountains", "peaks");
                     }
                 }
             }
-            return message;
+            return message_without_link;
         }
 
         /*
@@ -177,18 +179,36 @@ namespace Bank
          */
         private bool IsHttpUrl(string url)
         {
-            return ((!string.IsNullOrWhiteSpace(url)) && (url.ToLower().StartsWith("http")));
+            if ( string.IsNullOrWhiteSpace(url))
+                return false;
+            if (url.ToLower().StartsWith("http"))
+                return true;
+            else
+                return false; 
         }
 
+
+        void PrintCategorisedData (string header, string message, char category)
+        {
+            // MessageBox.Show(oggetto.message);
+            MessageBox.Show("Message ID: " + header + Environment.NewLine + "Message body: " + message + Environment.NewLine + "Category: " +
+                category +
+                Environment.NewLine + string.Join(Environment.NewLine, hashtag) + Environment.NewLine + string.Join(Environment.NewLine, urls)
+            );
+        }
 
         /*
          * store_data(header, message, category of the message): store data in json file; 
          */
         void store_data(string header, string message, char category)
         {
-            // Add also LIST OF string, store them and then clear them out; (if message is a twitter, 
+            // Print valided and categorised data to user before store them in json; 
+            PrintCategorisedData(header, message, category);
+
+            // Add also LIST OF string, store them and then clear them out; (if message is a twitter) 
             // store list of hashtag, store list of urls otherwise; 
             var dynObject = new { header = header, message = message, category = category, hashtag_list = hashtag, urls_list = urls };
+            
             string JSONresult = JsonConvert.SerializeObject(dynObject);
             using (var tw = new StreamWriter(@"../../../" + path_storage_messages, true))
             {
@@ -274,7 +294,14 @@ namespace Bank
                 {
                     // Check if string has Lenght >=2 and stars with '#';
                     if (possible_hashtag.Length >= 2 && possible_hashtag[0] == '#')
-                        hashtag[possible_hashtag]++;
+                    {
+                        // Check if the key exists; 
+                        if (hashtag.ContainsKey(possible_hashtag))
+                            hashtag[possible_hashtag]++;
+                        else
+                            hashtag.Add(possible_hashtag, 1);
+                    }
+                        
                 }
             }
         }
@@ -292,10 +319,9 @@ namespace Bank
          */
         private void Button_Send_Click(object sender, RoutedEventArgs e)
         {
-            // store_data("header prova", "messaf", "cia");
             string header = txtBoxSender.Text;
             string message = txtBoxMessage.Text;
-            string sender = "";
+            string message_sender = "";
             if (isInputEmpty(header, message))
             {
                 MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
@@ -338,7 +364,7 @@ namespace Bank
                     // Hide URLs and store them in a list and Store URLS in LIST
                     extended_message = hide_urls(message, len_message);
                     // Store in json file 
-                    store_data(sender, message, message_type);
+                    store_data(message_sender, message, message_type);
                 }
                 else if(message_type == 'T')
                 {
@@ -353,7 +379,7 @@ namespace Bank
                     StoreListOfHashtag(message, len_message);
  
                     // Store message in json file 
-                    store_data(sender, message, message_type);
+                    store_data(message_sender, message, message_type);
                 }
             }
         }
