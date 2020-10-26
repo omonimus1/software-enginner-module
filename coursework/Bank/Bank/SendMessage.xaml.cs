@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Shapes;
 using System.Xml;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 
 namespace Bank
 {
@@ -94,6 +97,7 @@ namespace Bank
             // Check if abbreviation is inside the CVS file:
             StreamReader sr = new StreamReader(@"../../../" + path_abbreviation_list);
             string possible_abbreviation = "";
+            string extended_abbreviation;
             for (int i = 0; i < len_message; i++)
             {
                 possible_abbreviation = "";
@@ -119,11 +123,14 @@ namespace Bank
                     // thjebug weith "ADN" instead possible_abbreviation eventually
                     if (_values[0] == possible_abbreviation)
                     {
-                        MessageBox.Show(_values[1]);
+                        extended_abbreviation = _values[1];
+                         MessageBox.Show(_values[1]);
                         // Here add the enxtation with this structure: <FullExtansion>
-                        string extended_abbreviation = " <" + _values[1] + "> ";
+                        //extended_abbreviation = ;
+                        //extended_abbreviation = extended_abbreviation.Insert(0, "<");
+                        
                         // Add the entended appreviation at the position of where we found them 
-                        message.Insert(i, extended_abbreviation);
+                        message = message.Insert(i, _values[1]);
                     }
                 }
 
@@ -156,6 +163,7 @@ namespace Bank
                     continue;
                 else
                 {
+                    
                     // Check if the current substring is a string
                     if (!IsHttpUrl(possible_url))
                         continue;
@@ -169,9 +177,13 @@ namespace Bank
                         message_without_link = message.Replace(possible_url, "<URL Quarantined>");
                         //var replacement = source.Replace("mountains", "peaks");
                     }
+                    
+                    message_without_link = Regex.Replace(message_without_link,
+                @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
+                "<a target='_blank' href='$1'>$1</a>"); 
                 }
             }
-            return message_without_link;
+            return message_without_link;   
         }
 
         /*
@@ -182,7 +194,11 @@ namespace Bank
             if ( string.IsNullOrWhiteSpace(url))
                 return false;
             if (url.ToLower().StartsWith("http"))
+            {
+                MessageBox.Show("We got a link");
                 return true;
+            }
+                
             else
                 return false; 
         }
@@ -307,12 +323,6 @@ namespace Bank
         }
 
 
-        void print_all_input(string sender_id, string header, string message, char category)
-        {
-            // Print in MessageBox: sender_id(email/twitterID/mobile phone), header, message, category; 
-            // If category is 'T', shows also the hashtag lists
-        }
-
         /*
          *   Button_Send_Click(): used to validate the input received
          *   and store them if necessary
@@ -321,6 +331,7 @@ namespace Bank
         {
             string header = txtBoxSender.Text;
             string message = txtBoxMessage.Text;
+
             string message_sender = "";
             if (isInputEmpty(header, message))
             {
@@ -351,7 +362,7 @@ namespace Bank
                 else if(message_type == 'S')
                 {
                     // Extend abbreviatios 
-                    string extended_message = extend_any_abbreviation(message, len_message);
+                    message = extend_any_abbreviation(message, len_message);
                     // Store in json file 
                     store_data(header, message, message_type);
                 }
@@ -360,9 +371,9 @@ namespace Bank
                     // search for an email in the body message; 
                     sender = GetEmailSender(message, len_message);
                     // Call function to extend abbreviation
-                    string extended_message = extend_any_abbreviation(message, len_message);
+                    message = extend_any_abbreviation(message, len_message);
                     // Hide URLs and store them in a list and Store URLS in LIST
-                    extended_message = hide_urls(message, len_message);
+                    message  = hide_urls(message, len_message);
                     // Store in json file 
                     store_data(message_sender, message, message_type);
                 }
