@@ -72,10 +72,10 @@ namespace Bank
 
         /*
          * get_message_nature(): return the nature of the message in base header
-         * - Return  1: if the header is of a mobile phone 
-         * - Return  2: if the header is an email address
-         * - Return  3: if the header is from a twitter user
-         * - Return 999: if the header type has not been recognised
+         * - Return  S: if the header is of a mobile phone 
+         * - Return  E: if the header is an email address
+         * - Return  T: if the header is from a twitter user
+         * - Return  N: if the header type has not been recognised
          */
         char get_message_nature(string header)
         {
@@ -91,7 +91,12 @@ namespace Bank
         }
 
 
-
+        /*
+         * extend_any_abbreviation(message, len_message):
+         *      It search on textwords.csv file any possible abbreaviation and add to the message
+         *      body the meaning of this abbreaviation. 
+         *      It returns the extended version of the message. 
+         */
         string extend_any_abbreviation(string message, int len_message)
         {
             // Check if abbreviation is inside the CVS file:
@@ -141,7 +146,15 @@ namespace Bank
             return message;
         }
 
-        string hide_urls(string message, int len_message)
+
+        /*
+         * HideUrls(message, len_message)
+         *      return the message without explicit urls address, storing each url in a list URLS
+         *      and hiding the url in the message, writing instead <URL Quarantined>
+         *      
+         *      Returns the message without urls. 
+         */
+        string HideUrls(string message, int len_message)
         {
             var message_without_link = "";
             string possible_url;
@@ -169,14 +182,8 @@ namespace Bank
                         continue;
                     else
                     {
-                                                // Remove the URL string and substitute it with “<URL Quarantined>";
-                        // Substitute substring from position_possible_url to i :  URL....
-                        //ReplaceAt(int index, int length, string replace)
-                        // int len_url = possible_url.Length;
                         urls.Add(possible_url);
-                        message_without_link = message.Replace(possible_url, "<URL Quarantined>");
-                        //var replacement = source.Replace("mountains", "peaks");
-                   
+                        message_without_link = message.Replace(possible_url, "<URL Quarantined>");                   
                     }
                 }
             }
@@ -201,9 +208,12 @@ namespace Bank
         }
 
 
+        /*
+         * PrintCategorisedData (header, sender, message, category)
+         *  Output the message ID, message body, category, sender and list of hashtag and urls; 
+         */
         void PrintCategorisedData (string header, string sender,  string message, char category)
         {
-            // MessageBox.Show(oggetto.message);
             MessageBox.Show("Message ID: " + header
                 + Environment.NewLine  
                 + "Sender: " + sender  
@@ -219,9 +229,9 @@ namespace Bank
         }
 
         /*
-         * store_data(header, message, category of the message): store data in json file; 
+         * SerializeMessage(header, message, category of the message): store data in json file; 
          */
-        void store_data(string header,string sender,  string message, char category)
+        void SerializeMessage(string header,string sender,  string message, char category)
         {
             // Print valided and categorised data to user before store them in json; 
             PrintCategorisedData(header,sender,  message, category);
@@ -243,6 +253,9 @@ namespace Bank
             hashtag.Clear();
         }
 
+        /*
+         * IsValidEmail(possible email): returns true if a given string respect the email format
+         */
         bool IsValidEmail(string possible_email)
         {
             try
@@ -256,6 +269,12 @@ namespace Bank
             }
         }
 
+
+        /*
+         * GetEmailSender(message, len_message):
+         *      Search inside the message string an email and returs it. 
+         *      If there are no email inside the text, it will return: "NOT EMAIL ID FOUND"
+         */
         string GetEmailSender(string message, int len_message)
         {
             string word;
@@ -278,6 +297,13 @@ namespace Bank
             return "NOT EMAIL ID FOUND";
         }
 
+
+        /*
+         *  GetTwitterUserId(message, len_message):
+         *      return a twitterUserID it has been found. A twitter id is any string with lenght >2 that 
+         *      starts with '@';
+         *      "NO TWITTER USER ID FOUND" otherwise. 
+         */
         string GetTwitterUserID(string message, int len_message)
         {
             string twitter_id;
@@ -297,14 +323,23 @@ namespace Bank
                 }
             }
             // No EMAIL Id has been found; 
-            return "NOT TWITTER USER ID FOUND";
+            return "NO TWITTER USER ID FOUND";
         }
 
+        /*
+         * IsPhoneNumber(number): 
+         *      returns true if the given string is a mobile phone number. 
+         *      false otherwise
+         */ 
         public static bool IsPhoneNumber(string number)
         {
             return Regex.Match(number, @"^(\+[0-9]{9})$").Success;
         }
 
+        /*
+         * GetMobilePhoneSender(message, len_message):
+         *      search inside a string a mobile phone number; 
+         */
         string GetMobilePhoneSender(string message, int len_message)
         {  
             string possible_number;
@@ -321,12 +356,15 @@ namespace Bank
                     if (IsPhoneNumber(possible_number))
                         return possible_number;
                 }
-
             }
-
             return "Unkown mobile phone number";
         }
 
+        /*
+         * StoreListOfHashtag(message, len_message):
+         *      search inside a message an hastage and store any of them 
+         *      in the hashta lists.
+         */
         void StoreListOfHashtag(string message, int len_message)
         {
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
@@ -401,7 +439,7 @@ namespace Bank
                     // Extend abbreviatios 
                     message = extend_any_abbreviation(message, len_message);
                     // Store in json file 
-                    store_data(message_id, sender, message, message_type);
+                    SerializeMessage(message_id, sender, message, message_type);
                 }
                 else if(message_type == 'E')
                 {
@@ -410,9 +448,9 @@ namespace Bank
                     // Call function to extend abbreviation
                     message = extend_any_abbreviation(message, len_message);
                     // Hide URLs and store them in a list and Store URLS in LIST
-                    message  = hide_urls(message, len_message);
+                    message  = HideUrls(message, len_message);
                     // Store in json file 
-                    store_data(message_id, sender, message, message_type);
+                    SerializeMessage(message_id, sender, message, message_type);
                 }
                 else if(message_type == 'T')
                 {
@@ -425,9 +463,9 @@ namespace Bank
                     sender = GetTwitterUserID(message, len_message);
                     // search all hashtag and store them in a list;
                     StoreListOfHashtag(message, len_message);
- 
+
                     // Store message in json file 
-                    store_data(message_id, sender, message, message_type);
+                    SerializeMessage(message_id, sender, message, message_type);
                 }
             }
         }
