@@ -404,7 +404,7 @@ namespace Bank
             string message_id = txtBoxSender.Text;
             string message = txtBoxMessage.Text;
 
-            string sender = "Sender unkown";
+           
             if (isInputEmpty(message_id, message))
             {
                 MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
@@ -413,6 +413,7 @@ namespace Bank
             // Start validation process
             else
             {
+                string sender_ = "Sender unkown";
                 // Understand message type: Twitte, message, email, NONE (not indified)
                 char message_type = get_message_nature(message_id);
                 if(message_type == 'N')
@@ -434,23 +435,23 @@ namespace Bank
                 else if(message_type == 'S')
                 {
                     // Search of mobile phone number sender
-                    sender = GetMobilePhoneSender(message, len_message);
+                    sender_ = GetMobilePhoneSender(message, len_message);
 
                     // Extend abbreviatios 
                     message = extend_any_abbreviation(message, len_message);
                     // Store in json file 
-                    SerializeMessage(message_id, sender, message, message_type);
+                    SerializeMessage(message_id, sender_ , message, message_type);
                 }
                 else if(message_type == 'E')
                 {
                     // search for an email in the body message; 
-                    sender = GetEmailSender(message, len_message);
+                    sender_ = GetEmailSender(message, len_message);
                     // Call function to extend abbreviation
                     message = extend_any_abbreviation(message, len_message);
                     // Hide URLs and store them in a list and Store URLS in LIST
                     message  = HideUrls(message, len_message);
                     // Store in json file 
-                    SerializeMessage(message_id, sender, message, message_type);
+                    SerializeMessage(message_id, sender_ , message, message_type);
                 }
                 else if(message_type == 'T')
                 {
@@ -460,12 +461,12 @@ namespace Bank
                     message = extend_any_abbreviation(message, len_message);
                     
                     // search ID twitter user in the body
-                    sender = GetTwitterUserID(message, len_message);
+                    sender_ = GetTwitterUserID(message, len_message);
                     // search all hashtag and store them in a list;
                     StoreListOfHashtag(message, len_message);
 
                     // Store message in json file 
-                    SerializeMessage(message_id, sender, message, message_type);
+                    SerializeMessage(message_id, sender_ , message, message_type);
                 }
             }
         }

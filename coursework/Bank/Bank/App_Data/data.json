@@ -10,3 +10,8 @@ eader":"S23","message":"https://www.github.com","category":"S","hashtag_list":{}
 {"header":"","message":"http://github.com/suca Figlio di t","category":"E","hashtag_list":{},"urls_list":[]}
 {"header":"","message":"http://github.com/suca Figlio di t","category":"E","hashtag_list":{},"urls_list":[]}
 {"header":"","message":"<URL Quarantined> WEEW","category":"E","hashtag_list":{},"urls_list":["http://www.github.com/"]}
+{"header":"E999","message":"test_email davidepollicino2015@gmail.com ciaone bello <URL Quarantined>","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["https://www.github.com/omonimus1"]}
+{"header":"S999","message":"ciao questo e' un messaggio. 07464329392","category":"S","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
+{"header":"S999","message":"ciao questo e' un messaggio. +44 07464329392","category":"S","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
+{"header":"T34343","message":"Ciao bello fratello @davideSender #ciao #Hashtag4234","category":"T","sender":"Sender unkown","hashtag_list":{"#ciao":1,"#Hashtag4234":1},"urls_list":[]}
+{"header":"T344343","message":"Ciao bello fratello @davideSender #ciao #Hashtag4234","category":"T","sender":"@davideSender","hashtag_list":{"#ciao":1,"#Hashtag4234":1},"urls_list":[]}
