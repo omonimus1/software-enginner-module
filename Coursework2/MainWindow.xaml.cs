@@ -54,7 +54,8 @@ namespace Coursework2
                 FileNameTextBox.Text = openFileDlg.FileName;
                 // Print content of the file 
                 string fileContent = System.IO.File.ReadAllText(openFileDlg.FileName);
-                
+                SendMessage s = new SendMessage();
+                s.ManageMessage(fileContent);
             }
         }
     }
