@@ -1,0 +1,6 @@
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\LibraryMessage\bin\Debug\LibraryMessage.dll
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\LibraryMessage\bin\Debug\LibraryMessage.pdb
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\LibraryMessage\obj\Debug\LibraryMessage.csprojAssemblyReference.cache
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\LibraryMessage\obj\Debug\LibraryMessage.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\LibraryMessage\obj\Debug\LibraryMessage.dll
+C:\Users\pc\Desktop\dev\software-enginner-module\coursework\Bank\LibraryMessage\obj\Debug\LibraryMessage.pdb

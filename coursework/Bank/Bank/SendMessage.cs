@@ -37,7 +37,7 @@ namespace Bank
         // Existing Category of important email 
         string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
             "suspicious incident", "intelligence", "cash loss"};
-
+        // [STAThread]
         public SendMessage()
         {
             InitializeComponent();
@@ -77,7 +77,7 @@ namespace Bank
          * - Return  T: if the header is from a twitter user
          * - Return  N: if the header type has not been recognised
          */
-        char get_message_nature(string header)
+        public char get_message_nature(string header)
         {
             if (header[0] == 'T')
                 return 'T';
@@ -192,7 +192,7 @@ namespace Bank
         /*
          * IsHttpUrl(string:: url) return true if the string provided in input is a link; 
          */
-        private bool IsHttpUrl(string url)
+        public bool IsHttpUrl(string url)
         {
             if ( string.IsNullOrWhiteSpace(url))
                 return false;
@@ -255,7 +255,7 @@ namespace Bank
         /*
          * IsValidEmail(possible email): returns true if a given string respect the email format
          */
-        bool IsValidEmail(string possible_email)
+       public bool IsValidEmail(string possible_email)
         {
             try
             {
@@ -339,7 +339,7 @@ namespace Bank
          * GetMobilePhoneSender(message, len_message):
          *      search inside a string a mobile phone number; 
          */
-        string GetMobilePhoneSender(string message, int len_message)
+        public  string GetMobilePhoneSender(string message, int len_message)
         {  
             string possible_number;
             for (int i = 0; i < len_message; i++)
