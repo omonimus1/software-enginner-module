@@ -69,7 +69,7 @@ namespace Coursework2
          * - Return  T: if the header is from a twitter user
          * - Return  N: if the header type has not been recognised
          */
-        public string get_message_id(string header)
+        public string GetMessageId(string header)
         {
 
             int len_header = header.Length;
@@ -413,7 +413,7 @@ namespace Coursework2
         {
             string sender_ = "Sender unkown";
             // Understand message type: Twitte, message, email, NONE (not indified)
-            string message_id = get_message_id(message);
+            string message_id = GetMessageId(message);
             if (message_id == "N")
             {
                 MessageBox.Show("Message nature has not be recognized");
