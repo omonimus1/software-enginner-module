@@ -31,8 +31,9 @@ namespace Coursework2
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        private string path_abbreviation_list = "../../../DataLayer/textwords.csv";
-        private string path_storage_messages = "../../../DataLayer/data.json";
+        private const string path_abbreviation_list = "../../../DataLayer/textwords.csv";
+        private const string path_storage_messages = "../../../DataLayer/data.json";
+        private const int MAX_LENGTH_TWITTER_ID = 16;
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
 
@@ -222,37 +223,72 @@ namespace Coursework2
          * PrintCategorisedData (header, sender, message, category)
          *  Output the message ID, message body, category, sender and list of hashtag and urls; 
          */
-        void PrintCategorisedData(string header, string sender, string message, char category)
+        void PrintCategorisedData(string header, string sender, string message,string subject,  char category)
         {
-            MessageBox.Show("Message ID: " + header
-                + Environment.NewLine
-                + "Sender: " + sender
-                + Environment.NewLine
-                + "Message body: " + message
-                + Environment.NewLine
-                + "Category: " + category
-                + Environment.NewLine
-                + string.Join(Environment.NewLine, hashtag)
-                + Environment.NewLine
-                + string.Join(Environment.NewLine, urls)
-            );
+            if(category == 'S')
+            {
+                MessageBox.Show("Message ID: " + header
+                     + Environment.NewLine
+                     + "Category: ⦁	SMS Message"
+                     + Environment.NewLine
+                     + "Mobile Phone Number Sender: " + sender
+                     + Environment.NewLine
+                     + "Message body: " + message
+                     + Environment.NewLine
+                     + string.Join(Environment.NewLine, hashtag)
+                     + Environment.NewLine
+                     + string.Join(Environment.NewLine, urls)
+                 );
+            }
+            else if(category == 'E')
+            {
+                MessageBox.Show("Message ID: " + header
+                    + Environment.NewLine
+                    + "Category: ⦁	Email Messages"
+                    + Environment.NewLine
+                    + "Sender email: " + sender
+                    + Environment.NewLine
+                    + "Subject: " + subject
+                    + Environment.NewLine
+                    + "Message body: " + message
+                    + Environment.NewLine
+                    + string.Join(Environment.NewLine, hashtag)
+                );
+            }
+            else if(category == 'T')
+            {
+                    MessageBox.Show("Message ID: " + header
+                     + Environment.NewLine
+                     + "Category:  ⦁	Tweet"
+                     + Environment.NewLine
+                     + "Twitter user Id: " + sender
+                     + Environment.NewLine
+                     + "Message body: " + message
+                     + Environment.NewLine
+                     + string.Join(Environment.NewLine, hashtag)
+                     + Environment.NewLine
+                     + string.Join(Environment.NewLine, urls)
+                 );
+            }
+
         }
 
         /*
          * SerializeMessage(header, message, category of the message): store data in json file; 
          */
-        void SerializeMessage(string header, string sender, string message, char category)
+        void SerializeMessage(string header, string sender, string message, string subject, char category)
         {
             // Print valided and categorised data to user before store them in json; 
-            PrintCategorisedData(header, sender, message, category);
+            PrintCategorisedData(header, sender, message,subject, category);
 
             // Add also LIST OF string, store them and then clear them out; (if message is a twitter) 
             // store list of hashtag, store list of urls otherwise; 
             var dynObject = new
             {
-                header = header,
-                message = message,
+                message_id = header,
                 category = category,
+                subject = subject,
+                message = message,
                 sender = sender,
                 hashtag_list = hashtag,
                 urls_list = urls
@@ -293,6 +329,7 @@ namespace Coursework2
    */
         public string GetTwitterUserID(string message, int len_message)
         {
+            const string TWEET_ID_NOT_FOUND = "Twttier User ID not found - Max Twitter ID Length allowed: 16";
             string twitter_id;
             // Iterate inside the message, check if any word is an email, if yes, return it. 
             for (int i = 0; i < len_message; i++)
@@ -303,14 +340,14 @@ namespace Coursework2
                     twitter_id += message[i];
                     i += 1;
                 }
-                if (!string.IsNullOrWhiteSpace(twitter_id))
+                if (!string.IsNullOrWhiteSpace(twitter_id) && twitter_id.Length <= MAX_LENGTH_TWITTER_ID)
                 {
                     if (twitter_id[0] == '@')
                         return twitter_id;
                 }
             }
             // No EMAIL Id has been found; 
-            return "NO TWITTER USER ID FOUND";
+            return TWEET_ID_NOT_FOUND;
         }
 
         /*
@@ -384,6 +421,7 @@ namespace Coursework2
         public void ManageMessage(string message)
         {
             string sender_ = "Sender unkown";
+            string subject = "";
             // Understand message type: Twitte, message, email, NONE (not indified)
             string message_id = GetMessageId(message);
             if (message_id == "N")
@@ -391,7 +429,7 @@ namespace Coursework2
                 MessageBox.Show("Message nature has not be recognized");
             }
             int len_message = message.Length;
-            if (message_id[0] == 'E' && len_message > 1028 || message_id[0] != 'E' && len_message > 140)
+            if (message_id[0] == 'E' && len_message > 1028 || message_id[0] != 'E' && len_message > 156)
             {
                 MessageBox.Show("Your messsage is too long");
                 return;
@@ -404,18 +442,28 @@ namespace Coursework2
                 // Extend abbreviatios 
                 message = extend_any_abbreviation(message, len_message);
                 // Store in json file 
-                SerializeMessage(message_id, sender_, message, message_id[0]);
+                SerializeMessage(message_id, sender_, message, subject, message_id[0]);
             }
             else if (message_id[0] == 'E')
             {
-                // search for an email in the body message; 
-                sender_ = GetEmailSender(message, len_message);
+           
+                int end_email_index = 0; 
+                sender_ = GetEmailSender(message, len_message, ref  end_email_index);
+                // Get email subject(20 chars after email sender);
+                
+                int i = 0;
+                while(i < 20 && end_email_index < len_message)
+                {
+                    subject += message[end_email_index];
+                    end_email_index += 1;
+                    i += 1; 
+                }
                 // Call function to extend abbreviation
                 message = extend_any_abbreviation(message, len_message);
                 // Hide URLs and store them in a list and Store URLS in LIST
                 message = HideUrls(message, len_message);
                 // Store in json file 
-                SerializeMessage(message_id, sender_, message, message_id[0]);
+                SerializeMessage(message_id, sender_, message,subject,  message_id[0]);
             }
             else if (message_id[0] == 'T')
             {
@@ -430,7 +478,7 @@ namespace Coursework2
                 StoreListOfHashtag(message, len_message);
 
                 // Store message in json file 
-                SerializeMessage(message_id, sender_, message, message_id[0]);
+                SerializeMessage(message_id, sender_, message, subject, message_id[0]);
             }
         }
 
@@ -474,7 +522,7 @@ namespace Coursework2
          *      Search inside the message string an email and returs it. 
          *      If there are no email inside the text, it will return: "NOT EMAIL ID FOUND"
          */
-        public string GetEmailSender(string message, int len_message)
+        public string GetEmailSender(string message, int len_message, ref int index_end_email)
         {
             string word;
             // Iterate inside the message, check if any word is an email, if yes, return it. 
@@ -489,7 +537,11 @@ namespace Coursework2
                 if (!string.IsNullOrWhiteSpace(word))
                 {
                     if (IsValidEmail(word))
+                    {
+                        index_end_email = i;
                         return word;
+                    }
+                        
                 }
             }
             // No EMAIL Id has been found; 
