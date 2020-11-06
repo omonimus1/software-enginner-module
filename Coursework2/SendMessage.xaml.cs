@@ -31,15 +31,15 @@ namespace Coursework2
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        private const string path_abbreviation_list = "../../../DataLayer/textwords.csv";
-        private const string path_storage_messages = "../../../DataLayer/data.json";
+        private const string PATH_ABBREVIATION_LIST = "../../../DataLayer/textwords.csv";
+        private const string PATH_STORAGE_MESSAGES = "../../../DataLayer/data.json";
         private const int MAX_LENGTH_TWITTER_ID = 16;
-        Dictionary<string, int> hashtag = new Dictionary<string, int>();
-        List<string> urls = new List<string>();
+        private Dictionary<string, int> hashtag = new Dictionary<string, int>();
+        private List<string> urls = new List<string>();
         //var list = List<KeyValuePair<String, String>>;
 
         // Existing Category of important email 
-        string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
+        private string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
             "suspicious incident", "intelligence", "cash loss"};
 
         /*
@@ -113,7 +113,7 @@ namespace Coursework2
         string ExtendAbbreviationInsideMessage(string message, int len_message)
         {
             // Check if abbreviation is inside the CVS file:
-            StreamReader sr = new StreamReader(@""+ path_abbreviation_list);
+            StreamReader sr = new StreamReader(@""+ PATH_ABBREVIATION_LIST);
             string possible_abbreviation = "";
             string extended_abbreviation;
             for (int i = 0; i < len_message; i++)
@@ -207,16 +207,7 @@ namespace Coursework2
          * IsHttpUrl(string:: url) return true if the string provided in input is a link; 
          */
         public bool IsHttpUrl(string url)
-        { /*
-            if (string.IsNullOrWhiteSpace(url) )
-                return false;
-            if (url.ToLower().StartsWith("http"))
-            {
-                return true;
-            }
-
-            else
-                return false; */
+        { 
             return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) && uriResult.Scheme == Uri.UriSchemeHttp;
         }
 
@@ -301,7 +292,7 @@ namespace Coursework2
             };
 
             string JSONresult = JsonConvert.SerializeObject(dynObject);
-            using (var tw = new StreamWriter(@"" + path_storage_messages, true))
+            using (var tw = new StreamWriter(@"" + PATH_STORAGE_MESSAGES, true))
             {
                 tw.WriteLine(JSONresult.ToString());
                 tw.Close();
