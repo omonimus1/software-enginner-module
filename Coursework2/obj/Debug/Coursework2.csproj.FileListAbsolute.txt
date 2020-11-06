@@ -1,4 +1,3 @@
-C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\Coursework2.csprojAssemblyReference.cache
 C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\MainWindow.g.cs
 C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\SendMessage.g.cs
 C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\App.g.cs

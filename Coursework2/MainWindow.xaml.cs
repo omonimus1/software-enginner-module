@@ -28,7 +28,7 @@ namespace Coursework2
         }
 
         // Message Botton Event
-        private void Button_Message_Click(object sender, RoutedEventArgs e)
+        public void Button_Message_Click(object sender, RoutedEventArgs e)
         {
             SendMessage objectSendMessage = new SendMessage();
             this.Visibility = Visibility.Hidden;

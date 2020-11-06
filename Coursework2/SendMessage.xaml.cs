@@ -28,11 +28,11 @@ namespace Coursework2
             InitializeComponent();
         }
 
-        private string TextMessage;
+        public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        private string path_abbreviation_list = "App_Data/textwords.csv";
-        private string path_storage_messages = "App_Data/data.json";
+        public string path_abbreviation_list = "App_Data/textwords.csv";
+        public string path_storage_messages = "App_Data/data.json";
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
 
@@ -43,7 +43,7 @@ namespace Coursework2
         /*
          * TextBoxMessage_TextChange(): Will keep the form open while user is typing
          */
-        private void TextBoxMessage_TextChanged(object sender, EventArgs e)
+        public void TextBoxMessage_TextChanged(object sender, EventArgs e)
         {
             this.TextMessage = txtBoxMessage.Text;
         }
@@ -209,7 +209,6 @@ namespace Coursework2
                 return false;
             if (url.ToLower().StartsWith("http"))
             {
-                MessageBox.Show("We got a link");
                 return true;
             }
 
@@ -272,7 +271,7 @@ namespace Coursework2
         /*
     * IsValidEmail(possible email): returns true if a given string respect the email format
     */
-        private bool IsValidEmail(string possible_email)
+        public bool IsValidEmail(string possible_email)
         {
             try
             {
@@ -320,7 +319,8 @@ namespace Coursework2
          */
         public static bool IsPhoneNumber(string number)
         {
-            return Regex.Match(number, @"^(\+[0-9]{9})$").Success;
+            return Regex.Match(number, @"^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$", RegexOptions.IgnoreCase).Success;
+
         }
 
         /*
@@ -352,7 +352,7 @@ namespace Coursework2
          *      search inside a message an hastage and store any of them 
          *      in the hashta lists.
          */
-        private void StoreListOfHashtag(string message, int len_message)
+        public void StoreListOfHashtag(string message, int len_message)
         {
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
@@ -380,7 +380,7 @@ namespace Coursework2
             }
         }
 
-        private void ManageMessage(string message)
+        public void ManageMessage(string message)
         {
             string sender_ = "Sender unkown";
             // Understand message type: Twitte, message, email, NONE (not indified)
@@ -457,12 +457,12 @@ namespace Coursework2
         /*
          * Button_Clear_Click(): remove any content insered in the message form
          */
-        private void Button_Clear_Click(object sender, RoutedEventArgs e)
+        public void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             txtBoxMessage.Text = "";
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

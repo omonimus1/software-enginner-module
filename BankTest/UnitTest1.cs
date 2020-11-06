@@ -21,13 +21,14 @@ namespace BankTest
         }
 
         [TestMethod]
-        public void TestExtractionMessageSender()
+        public void ExtractMessageSenderNumber()
         {
-            string message = "please call me back at 7444444444";
-            string expected = "7444444444";
+            string message = "please call me back at +447222555555";
+            string expected = "+447222555555";
             int len = message.Length;
             // Act
             string result_elaboration = c.GetMobilePhoneSender(message, len);
+            
             Assert.AreEqual(expected, result_elaboration);
         }
 
@@ -36,7 +37,8 @@ namespace BankTest
         {
             string message_id = "E23232323";
             char expected_id = 'E';
-            Assert.AreEqual(expected_id, c.GetMessageId(message_id));
+            string result_elaboration = c.GetMessageId(message_id);
+            Assert.AreEqual(expected_id, result_elaboration[0]);
         }
 
         [TestMethod]
