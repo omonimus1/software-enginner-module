@@ -36,6 +36,7 @@ namespace Coursework2
         private const int MAX_LENGTH_TWITTER_ID = 16;
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
+        //var list = List<KeyValuePair<String, String>>;
 
         // Existing Category of important email 
         string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
@@ -255,7 +256,9 @@ namespace Coursework2
                     + Environment.NewLine
                     + "Message body: " + message
                     + Environment.NewLine
-                    + string.Join(Environment.NewLine, hashtag)
+                    + string.Join(Environment.NewLine, hashtag) 
+                    + Environment.NewLine
+                    + string.Join(Environment.NewLine, urls)
                 );
             }
             else if(category == 'T')
