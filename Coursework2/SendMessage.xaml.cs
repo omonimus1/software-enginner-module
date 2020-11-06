@@ -109,7 +109,7 @@ namespace Coursework2
          *      body the meaning of this abbreaviation. 
          *      It returns the extended version of the message. 
          */
-        string extend_any_abbreviation(string message, int len_message)
+        string ExtendAbbreviationInsideMessage(string message, int len_message)
         {
             // Check if abbreviation is inside the CVS file:
             StreamReader sr = new StreamReader(@""+ path_abbreviation_list);
@@ -118,7 +118,7 @@ namespace Coursework2
             for (int i = 0; i < len_message; i++)
             {
                 possible_abbreviation = "";
-                while (i < len_message)
+                while (i < len_message && message[i] != ' ')
                 {
                     if (message[i] >= 'A' && message[i] <= 'Z' || message[i] == '/')
                         possible_abbreviation += message[i];
@@ -126,7 +126,7 @@ namespace Coursework2
                 }
                 // Now, we have the possible abbreviation; 
                 // If abbreviation is empty skype
-                if (string.IsNullOrWhiteSpace(possible_abbreviation) || possible_abbreviation.Length == 1)
+                if (string.IsNullOrWhiteSpace(possible_abbreviation))
                     continue;
                 string strline = "";
                 string[] _values = null;
@@ -136,6 +136,7 @@ namespace Coursework2
                     x++;
                     strline = sr.ReadLine();
                     _values = strline.Split(',');
+                   // MessageBox.Show(_values[0]);
                     // print Any day Now, the extension of ADN
                     // thjebug weith "ADN" instead possible_abbreviation eventually
                     if (_values[0] == possible_abbreviation)
@@ -223,13 +224,13 @@ namespace Coursework2
          * PrintCategorisedData (header, sender, message, category)
          *  Output the message ID, message body, category, sender and list of hashtag and urls; 
          */
-        void PrintCategorisedData(string header, string sender, string message,string subject,  char category)
+        void PrintCategorisedData(string header, string sender, string message,string subject,  char category, string priority_email)
         {
             if(category == 'S')
             {
                 MessageBox.Show("Message ID: " + header
                      + Environment.NewLine
-                     + "Category: ⦁	SMS Message"
+                     + "Category: ⦁SMS Message"
                      + Environment.NewLine
                      + "Mobile Phone Number Sender: " + sender
                      + Environment.NewLine
@@ -244,7 +245,9 @@ namespace Coursework2
             {
                 MessageBox.Show("Message ID: " + header
                     + Environment.NewLine
-                    + "Category: ⦁	Email Messages"
+                    + "Category: ⦁Email Messages"
+                    + Environment.NewLine
+                    + "Priority Nature Email: " + priority_email
                     + Environment.NewLine
                     + "Sender email: " + sender
                     + Environment.NewLine
@@ -276,10 +279,10 @@ namespace Coursework2
         /*
          * SerializeMessage(header, message, category of the message): store data in json file; 
          */
-        void SerializeMessage(string header, string sender, string message, string subject, char category)
+        void SerializeMessage(string header, string sender, string message, string subject, char category, string priority_email)
         {
             // Print valided and categorised data to user before store them in json; 
-            PrintCategorisedData(header, sender, message,subject, category);
+            PrintCategorisedData(header, sender, message,subject, category, priority_email);
 
             // Add also LIST OF string, store them and then clear them out; (if message is a twitter) 
             // store list of hashtag, store list of urls otherwise; 
@@ -418,10 +421,20 @@ namespace Coursework2
             }
         }
 
+        public bool IsIncidentReportEmail(string subject)
+        {
+            // Search the subject of the email has a prority keyword  /* or a bit longer: (stringArray.Any(s => stringToCheck.Contains(s))) */
+            if (urgent_email_categories.Any(subject.Contains))
+                return true; 
+            else
+                return false; 
+        }
+
         public void ManageMessage(string message)
         {
             string sender_ = "Sender unkown";
             string subject = "";
+            string priority_email;
             // Understand message type: Twitte, message, email, NONE (not indified)
             string message_id = GetMessageId(message);
             if (message_id == "N")
@@ -438,11 +451,11 @@ namespace Coursework2
             {
                 // Search of mobile phone number sender
                 sender_ = GetMobilePhoneSender(message, len_message);
-
+ 
                 // Extend abbreviatios 
-                message = extend_any_abbreviation(message, len_message);
+                message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Store in json file 
-                SerializeMessage(message_id, sender_, message, subject, message_id[0]);
+                SerializeMessage(message_id, sender_, message, subject, message_id[0], "");
             }
             else if (message_id[0] == 'E')
             {
@@ -458,19 +471,24 @@ namespace Coursework2
                     end_email_index += 1;
                     i += 1; 
                 }
+                bool incident = IsIncidentReportEmail(subject);
+                if (incident == true)
+                    priority_email = "Incident Report";
+                else
+                    priority_email = "Regular Message";
                 // Call function to extend abbreviation
-                message = extend_any_abbreviation(message, len_message);
+                message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Hide URLs and store them in a list and Store URLS in LIST
                 message = HideUrls(message, len_message);
                 // Store in json file 
-                SerializeMessage(message_id, sender_, message,subject,  message_id[0]);
+                SerializeMessage(message_id, sender_, message,subject,  message_id[0], priority_email);
             }
             else if (message_id[0] == 'T')
             {
 
                 // Extend messager abbreviation; 
                 // Extend messager abbreviation; 
-                message = extend_any_abbreviation(message, len_message);
+                message = ExtendAbbreviationInsideMessage(message, len_message);
 
                 // search ID twitter user in the body
                 sender_ = GetTwitterUserID(message, len_message);
@@ -478,7 +496,7 @@ namespace Coursework2
                 StoreListOfHashtag(message, len_message);
 
                 // Store message in json file 
-                SerializeMessage(message_id, sender_, message, subject, message_id[0]);
+                SerializeMessage(message_id, sender_, message, subject, message_id[0], "");
             }
         }
 
