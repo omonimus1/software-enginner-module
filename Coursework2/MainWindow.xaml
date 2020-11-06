@@ -7,15 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="481" Width="919">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="43" Margin="297,233,0,0" TextWrapping="Wrap"   
-                 Text="TextBox" VerticalAlignment="Top" Width="436" Name="FileNameTextBox"/>
         <Button x:Name="BrowseButton" Content="Browse a file" HorizontalAlignment="Left"   
-                Margin="733,233,0,0" VerticalAlignment="Top" Width="121" Click="BrowseButton_Click"   
-                RenderTransformOrigin="1.047,0.821" Height="40"/>
-        <TextBlock HorizontalAlignment="Left" Height="282" Margin="30,96,0,0"   
-                   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"  
-                   Width="703" Name="TextBlock1"/>
-        <Button x:Name="btnMessage" Content="Message Us" HorizontalAlignment="Left" Margin="30,233,0,0" VerticalAlignment="Top" Click="Button_Message_Click" Width="120" Height="51"/>
+                Margin="511,227,0,0" VerticalAlignment="Top" Width="128" Click="BrowseButton_Click"   
+                RenderTransformOrigin="1.047,0.821" Height="51"/>
+        <Button x:Name="btnMessage" Content="Message Us" HorizontalAlignment="Left" Margin="245,227,0,0" VerticalAlignment="Top" Click="Button_Message_Click" Width="120" Height="51"/>
         <Label Content="&#xA;" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="168"/>
         <Label Content="Napier Bank - Contact Us form&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" Margin="376,10,0,0" VerticalAlignment="Top" Width="183"/>
     </Grid>

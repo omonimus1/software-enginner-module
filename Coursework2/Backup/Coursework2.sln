@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coursework2", "Coursework2.csproj", "{373023A1-028C-4F59-B7EE-2E9BC0869890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "..\DataLayer\DataLayer.csproj", "{61FB4F5D-D513-41F0-A7B0-F26E36B97E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankTest", "..\BankTest\BankTest.csproj", "{D51E684A-992A-4455-B8EC-3F182B3049C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{373023A1-028C-4F59-B7EE-2E9BC0869890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373023A1-028C-4F59-B7EE-2E9BC0869890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373023A1-028C-4F59-B7EE-2E9BC0869890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373023A1-028C-4F59-B7EE-2E9BC0869890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61FB4F5D-D513-41F0-A7B0-F26E36B97E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61FB4F5D-D513-41F0-A7B0-F26E36B97E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61FB4F5D-D513-41F0-A7B0-F26E36B97E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61FB4F5D-D513-41F0-A7B0-F26E36B97E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51E684A-992A-4455-B8EC-3F182B3049C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51E684A-992A-4455-B8EC-3F182B3049C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51E684A-992A-4455-B8EC-3F182B3049C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51E684A-992A-4455-B8EC-3F182B3049C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0110D9DF-6974-4A41-8CD3-DB45D78B5884}
+	EndGlobalSection
+EndGlobal

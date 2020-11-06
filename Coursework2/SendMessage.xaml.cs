@@ -204,8 +204,8 @@ namespace Coursework2
          * IsHttpUrl(string:: url) return true if the string provided in input is a link; 
          */
         public bool IsHttpUrl(string url)
-        {
-            if (string.IsNullOrWhiteSpace(url))
+        { /*
+            if (string.IsNullOrWhiteSpace(url) )
                 return false;
             if (url.ToLower().StartsWith("http"))
             {
@@ -213,7 +213,8 @@ namespace Coursework2
             }
 
             else
-                return false;
+                return false; */
+            return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) && uriResult.Scheme == Uri.UriSchemeHttp;
         }
 
 

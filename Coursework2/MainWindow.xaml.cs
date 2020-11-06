@@ -51,11 +51,7 @@ namespace Coursework2
             // Load content of file in a TextBlock
             if (result == true)
             {
-                // Print Filename 
-                FileNameTextBox.Text = openFileDlg.FileName;
-                // Print content of the file 
-                // string fileContent = System.IO.File.ReadAllText(openFileDlg.FileName, Encoding.UTF8);
-                // Read the file and display it line by line.  
+                // Read the file  
                 var lines = File.ReadAllLines(openFileDlg.FileName);
                 string message = "";
                 for (int i = 0; i < lines.Length; i += 1)
@@ -64,8 +60,7 @@ namespace Coursework2
                     // Process line
                 }
                 SendMessage s = new SendMessage();
-                s.ManageMessage(message)
-                    ;
+                s.ManageMessage(message);
             }
         }
     }
