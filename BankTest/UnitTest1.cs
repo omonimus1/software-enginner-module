@@ -16,7 +16,6 @@ namespace BankTest
             string expected_twitter_id = "@davidePollicino";
             int len = message.Length;
             // Act
-        
             string result_elaboration = c.GetTwitterUserID(message, len);
             Assert.AreEqual(expected_twitter_id, result_elaboration);
         }

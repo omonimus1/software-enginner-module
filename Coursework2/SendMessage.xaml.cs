@@ -270,9 +270,9 @@ namespace Coursework2
         }
 
         /*
-         * IsValidEmail(possible email): returns true if a given string respect the email format
-         */
-        public bool IsValidEmail(string possible_email)
+    * IsValidEmail(possible email): returns true if a given string respect the email format
+    */
+        private bool IsValidEmail(string possible_email)
         {
             try
             {
@@ -285,41 +285,12 @@ namespace Coursework2
             }
         }
 
-
         /*
-         * GetEmailSender(message, len_message):
-         *      Search inside the message string an email and returs it. 
-         *      If there are no email inside the text, it will return: "NOT EMAIL ID FOUND"
-         */
-        public string GetEmailSender(string message, int len_message)
-        {
-            string word;
-            // Iterate inside the message, check if any word is an email, if yes, return it. 
-            for (int i = 0; i < len_message; i++)
-            {
-                word = "";
-                while (i < len_message && message[i] != ' ')
-                {
-                    word += message[i];
-                    i += 1;
-                }
-                if (!string.IsNullOrWhiteSpace(word))
-                {
-                    if (IsValidEmail(word))
-                        return word;
-                }
-            }
-            // No EMAIL Id has been found; 
-            return "NOT EMAIL ID FOUND";
-        }
-
-
-        /*
-         *  GetTwitterUserId(message, len_message):
-         *      return a twitterUserID it has been found. A twitter id is any string with lenght >2 that 
-         *      starts with '@';
-         *      "NO TWITTER USER ID FOUND" otherwise. 
-         */
+   *  GetTwitterUserId(message, len_message):
+   *      return a twitterUserID it has been found. A twitter id is any string with lenght >2 that 
+   *      starts with '@';
+   *      "NO TWITTER USER ID FOUND" otherwise. 
+   */
         public string GetTwitterUserID(string message, int len_message)
         {
             string twitter_id;
@@ -381,7 +352,7 @@ namespace Coursework2
          *      search inside a message an hastage and store any of them 
          *      in the hashta lists.
          */
-        void StoreListOfHashtag(string message, int len_message)
+        private void StoreListOfHashtag(string message, int len_message)
         {
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
@@ -409,7 +380,7 @@ namespace Coursework2
             }
         }
 
-        public void ManageMessage(string message)
+        private void ManageMessage(string message)
         {
             string sender_ = "Sender unkown";
             // Understand message type: Twitte, message, email, NONE (not indified)
@@ -466,7 +437,7 @@ namespace Coursework2
          *   Button_Send_Click(): used to validate the input received
          *   and store them if necessary
          */
-        public  void Button_Send_Click(object sender, RoutedEventArgs e)
+        public void Button_Send_Click(object sender, RoutedEventArgs e)
         {
             string message = txtBoxMessage.Text;
 
@@ -494,6 +465,34 @@ namespace Coursework2
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+
+        /*
+         * GetEmailSender(message, len_message):
+         *      Search inside the message string an email and returs it. 
+         *      If there are no email inside the text, it will return: "NOT EMAIL ID FOUND"
+         */
+        public string GetEmailSender(string message, int len_message)
+        {
+            string word;
+            // Iterate inside the message, check if any word is an email, if yes, return it. 
+            for (int i = 0; i < len_message; i++)
+            {
+                word = "";
+                while (i < len_message && message[i] != ' ')
+                {
+                    word += message[i];
+                    i += 1;
+                }
+                if (!string.IsNullOrWhiteSpace(word))
+                {
+                    if (IsValidEmail(word))
+                        return word;
+                }
+            }
+            // No EMAIL Id has been found; 
+            return "NOT EMAIL ID FOUND";
         }
     }
 }

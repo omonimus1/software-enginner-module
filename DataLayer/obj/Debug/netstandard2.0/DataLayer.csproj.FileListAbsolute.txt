@@ -1,0 +1,15 @@
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\DataLayer.deps.json
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\DataLayer.dll
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\DataLayer.pdb
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\Coursework2.exe
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\Newtonsoft.Json.dll
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\Coursework2.pdb
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\Coursework2.exe.config
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\bin\Debug\netstandard2.0\Newtonsoft.Json.xml
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.csprojAssemblyReference.cache
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.AssemblyInfo.cs
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.csproj.CopyComplete
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.dll
+C:\Users\pc\Desktop\dev\software-enginner-module\DataLayer\obj\Debug\netstandard2.0\DataLayer.pdb
