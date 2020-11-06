@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,9 +54,18 @@ namespace Coursework2
                 // Print Filename 
                 FileNameTextBox.Text = openFileDlg.FileName;
                 // Print content of the file 
-                string fileContent = System.IO.File.ReadAllText(openFileDlg.FileName);
+                // string fileContent = System.IO.File.ReadAllText(openFileDlg.FileName, Encoding.UTF8);
+                // Read the file and display it line by line.  
+                var lines = File.ReadAllLines(openFileDlg.FileName);
+                string message = "";
+                for (int i = 0; i < lines.Length; i += 1)
+                {
+                    message += lines[i] + " ";
+                    // Process line
+                }
                 SendMessage s = new SendMessage();
-                s.ManageMessage(fileContent);
+                s.ManageMessage(message)
+                    ;
             }
         }
     }

@@ -31,8 +31,8 @@ namespace Coursework2
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        public string path_abbreviation_list = "App_Data/textwords.csv";
-        public string path_storage_messages = "App_Data/data.json";
+        private string path_abbreviation_list = "../../../DataLayer/textwords.csv";
+        private string path_storage_messages = "../../../DataLayer/data.json";
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
 
@@ -111,7 +111,7 @@ namespace Coursework2
         string extend_any_abbreviation(string message, int len_message)
         {
             // Check if abbreviation is inside the CVS file:
-            StreamReader sr = new StreamReader(@"../../../" + path_abbreviation_list);
+            StreamReader sr = new StreamReader(@""+ path_abbreviation_list);
             string possible_abbreviation = "";
             string extended_abbreviation;
             for (int i = 0; i < len_message; i++)
@@ -258,7 +258,7 @@ namespace Coursework2
             };
 
             string JSONresult = JsonConvert.SerializeObject(dynObject);
-            using (var tw = new StreamWriter(@"../../../" + path_storage_messages, true))
+            using (var tw = new StreamWriter(@"" + path_storage_messages, true))
             {
                 tw.WriteLine(JSONresult.ToString());
                 tw.Close();

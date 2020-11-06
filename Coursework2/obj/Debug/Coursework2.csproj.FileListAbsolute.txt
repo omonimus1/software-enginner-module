@@ -17,3 +17,4 @@ C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\Coursewor
 C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\Coursework2.csproj.CopyComplete
 C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\Coursework2.exe
 C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\Coursework2.pdb
+C:\Users\pc\Desktop\dev\software-enginner-module\Coursework2\obj\Debug\Coursework2.csprojAssemblyReference.cache
