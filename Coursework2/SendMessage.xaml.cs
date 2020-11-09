@@ -188,10 +188,8 @@ namespace Coursework2
                 {
 
                     // Check if the current substring is a string
-                    if (!IsHttpUrl(possible_url))
-                        continue;
-                    else
-                    {
+                    if (IsHttpUrl(possible_url))
+                    { 
                         urls.Add(possible_url);
                         message_without_link = message.Replace(possible_url, "<URL Quarantined>");
                     }
@@ -203,24 +201,20 @@ namespace Coursework2
         /*
          * IsHttpUrl(string:: url) return true if the string provided in input is a link; 
          */
-        public bool IsHttpUrl(string url)
+        public bool IsHttpUrl(string possible_url)
         {
-            if (string.IsNullOrWhiteSpace(url))
-                return false;
-            if (url.ToLower().StartsWith("http"))
-            {
-                return true;
-            }
-
-            else
-                return false;
+           
+            Uri uriResult;
+            bool result =  Uri.TryCreate(possible_url, UriKind.Absolute, out uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            return result;
         }
 
 
         /*
-         * PrintCategorisedData (header, sender, message, category)
-         *  Output the message ID, message body, category, sender and list of hashtag and urls; 
-         */
+        * PrintCategorisedData (header, sender, message, category)
+        *  Output the message ID, message body, category, sender and list of hashtag and urls; 
+        */
         void PrintCategorisedData(string header, string sender, string message, char category)
         {
             MessageBox.Show("Message ID: " + header
@@ -455,12 +449,12 @@ namespace Coursework2
             for (int i = 0; i < len_message; i++)
             {
                 word = "";
-                while (i < len_message && message[i] != ' ')
+                while (i < len_message && message[i] != ' ' ||  i < len_message && char.IsLetterOrDigit(message[i]))
                 {
                     word += message[i];
                     i += 1;
                 }
-                if (!string.IsNullOrWhiteSpace(word))
+                if (!string.IsNullOrWhiteSpace(word) && word.Length > 4)
                 {
                     if (IsValidEmail(word))
                         return word;
