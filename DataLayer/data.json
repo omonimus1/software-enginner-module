@@ -28,3 +28,43 @@
 {"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
 {"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
 {"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","sender":"Twttier User ID not found - Max Twitter ID Length allowed: 16","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","sender":"Twttier User ID not found - Max Twitter ID Length allowed: 16","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
+{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
+{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
+{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
+{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
+{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
+{"message_id":"S123456789","category":"S","subject":"","message":"S123456789 CIAO @hellobello","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
+{"message_id":"S123456789","category":"S","subject":"","message":"S123456789 CIAO @hellobello","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
+{"message_id":"S123456789","category":"S","subject":"","message":"S123456789 CIAO @hellobello","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","sender":"Twttier User ID not found - Max Twitter ID Length allowed: 16","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}

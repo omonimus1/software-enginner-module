@@ -237,7 +237,7 @@ namespace Coursework2
             {
                 MessageBox.Show("Message ID: " + header
                      + Environment.NewLine
-                     + "Category: ⦁	SMS Message"
+                     + "Category:⦁SMS Message"
                      + Environment.NewLine
                      + "Mobile Phone Number Sender: " + sender
                      + Environment.NewLine
@@ -252,7 +252,7 @@ namespace Coursework2
             {
                 MessageBox.Show("Message ID: " + header
                     + Environment.NewLine
-                    + "Category: ⦁	Email Messages"
+                    + "Category:⦁Email Messages"
                     + Environment.NewLine
                     + "Sender email: " + sender
                     + Environment.NewLine
@@ -267,7 +267,7 @@ namespace Coursework2
             {
                 MessageBox.Show("Message ID: " + header
                  + Environment.NewLine
-                 + "Category:  ⦁	Tweet"
+                 + "Category:⦁Tweet"
                  + Environment.NewLine
                  + "Twitter user Id: " + sender
                  + Environment.NewLine
@@ -420,6 +420,7 @@ namespace Coursework2
                 message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Store in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
+                PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
             }
             else if (message_id[0] == 'E')
             {
@@ -444,6 +445,8 @@ namespace Coursework2
                 message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Hide URLs and store them in a list and Store URLS in LIST
                 message = HideUrls(message, len_message);
+                PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
+
                 // Store in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], priority_email, ref urls, ref hashtag);
             }
@@ -458,6 +461,7 @@ namespace Coursework2
                 sender_ = GetTwitterUserID(message, len_message);
                 // search all hashtag and store them in a list;
                 StoreListOfHashtag(message, len_message);
+                PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
 
                 // Store message in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
