@@ -8,63 +8,12 @@
     "**/platforms"
   ]
 }
-{"header":"E123456789","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email http <URL Quarantined>","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http","http://www.github.com"]}
-{"header":"E123456789","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email http, <URL Quarantined>","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http,","http://www.github.com"]}
-{"header":"E123456789","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email http <URL Quarantined>","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"E123456789","category":"E","subject":" is my email this is","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"S123465798","category":"S","subject":"","message":"S123465798 this is a text message 07464329392 ciaaaao AAP ","sender":"07464329392","hashtag_list":{},"urls_list":[]}
-{"message_id":"S123465798","category":"S","subject":"","message":"S123465798 this is a AAP  text message v  AAP  07464329392 ciaaaao AAP ","sender":"07464329392","hashtag_list":{},"urls_list":[]}
-{"message_id":"S123465798","category":"S","subject":"","message":"S123465798 this is a text message 07464329392 ciaaaao AAP ","sender":"07464329392","hashtag_list":{},"urls_list":[]}
-{"message_id":"E123456789","category":"E","subject":"  is my email this i","message":"E123456789 THIS is an email davidepollicino2015@gmail.com  is my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"E123456789","category":"E","subject":"  staff attack my em","message":"E123456789 THIS is an email davidepollicino2015@gmail.com  staff attack my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"E123456789","category":"E","subject":"  theft my email thi","message":"E123456789 THIS is an email davidepollicino2015@gmail.com  theft my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"E123456789","category":"E","subject":"   intelligence thef","message":"E123456789 THIS is an email davidepollicino2015@gmail.com   intelligence theft my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"E123456789","category":"E","subject":"  intelligence is my","message":"E123456789 THIS is an email davidepollicino2015@gmail.com  intelligence is my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"message_id":"E123456789","category":"E","subject":"  staff attack is my","message":"E123456789 THIS is an email davidepollicino2015@gmail.com  staff attack is my email this is a nice amazing subject example http <URL Quarantined>","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"header":"E123456789","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email http <URL Quarantined> ","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http","http://www.github.com"]}
-{"header":"E123456789","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email http <URL Quarantined> ","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http","http://www.github.com"]}
-{"header":"E123456789","message":"E123456789 THIS is an email davidepollicino2015@gmail.com is my email http <URL Quarantined> ","category":"E","sender":"davidepollicino2015@gmail.com","hashtag_list":{},"urls_list":["http://www.github.com"]}
-{"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
-{"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
-{"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
-{"header":"T123456789","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","category":"T","sender":"@davidePollicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
 {"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","sender":"Twttier User ID not found - Max Twitter ID Length allowed: 16","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
 {"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","sender":"Twttier User ID not found - Max Twitter ID Length allowed: 16","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456879","category":"T","subject":"","message":"cds T123456879 @HELLO","sender":"@HELLO","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 CIAO @hellobello","sender":"@hellobello","hashtag_list":{},"urls_list":[]}
-{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
-{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
-{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
-{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
-{"message_id":"E123456789","category":"E","subject":"E123456789 CIAO @hel","message":"","sender":"NOT EMAIL ID FOUND","hashtag_list":{},"urls_list":[]}
-{"message_id":"S123456789","category":"S","subject":"","message":"S123456789 CIAO @hellobello","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
-{"message_id":"S123456789","category":"S","subject":"","message":"S123456789 CIAO @hellobello","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
-{"message_id":"S123456789","category":"S","subject":"","message":"S123456789 CIAO @hellobello","sender":"Unkown mobile phone number","hashtag_list":{},"urls_list":[]}
 {"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davidePollicino, AAP  #hello #World #hello ","sender":"Twttier User ID not found - Max Twitter ID Length allowed: 16","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davicino, AAP  #hello #World #hello ","sender":"@davicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davicino, AAP  #hello #World #hello ","sender":"@davicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davicino, AAP  #hello #World #hello ","sender":"@davicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davicino, AAP  #hello #World #hello ","sender":"@davicino,","hashtag_list":{"#hello":2,"#World":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davicino, AAPAlways a pleasure  #hello #World #hello ","sender":"@davicino,","hashtag_list":{"#hel":1},"urls_list":[]}
+{"message_id":"T123456789","category":"T","subject":"","message":"T123456789 this is a tweet, I am @davicino, AAP <Always a pleasure>   #hello #World #hello ","sender":"@davicino,","hashtag_list":{},"urls_list":[]}

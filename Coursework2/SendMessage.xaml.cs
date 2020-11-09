@@ -32,7 +32,8 @@ namespace Coursework2
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        private const string PATH_ABBREVIATION_LIST = "../../../DataLayer/textwords.csv";
+        //private  string PATH_ABBREVIATION_LIST = "../../../DataLayer/textwords.csv";
+        string abbreviation_list = "textwords.csv";
         private const int MAX_LENGTH_TWITTER_ID = 16;
 
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
@@ -118,23 +119,30 @@ namespace Coursework2
   */
         string ExtendAbbreviationInsideMessage(string message, int len_message)
         {
-            // Check if abbreviation is inside the CVS file:
-            StreamReader sr = new StreamReader(@"" + PATH_ABBREVIATION_LIST);
+            // Process storage and check if abbreviations needs to be extended
+            // Process storage and check if abbreviations needs to be extended
+            /* “Saw your message ROFL can’t wait to see you” becomes “Saw your message 
+             * ROFL<Rolls on the floor laughing> can’t wait to see you” */
+
+            // Expand abbreviations
+            // path_abbreviation_list
             string possible_abbreviation = "";
-            string extended_abbreviation;
+            
             for (int i = 0; i < len_message; i++)
             {
                 possible_abbreviation = "";
-                while (i < len_message && message[i] != ' ')
+                while (i < len_message && message[i] == '/' || i < len_message && message[i] >= 'A' && message[i] <= 'Z')
                 {
-                    if (message[i] >= 'A' && message[i] <= 'Z' || message[i] == '/')
                         possible_abbreviation += message[i];
-                    i += 1;
+                        i += 1;
+  
                 }
                 // Now, we have the possible abbreviation; 
                 // If abbreviation is empty skype
-                if (string.IsNullOrWhiteSpace(possible_abbreviation))
+                if (possible_abbreviation == "" || possible_abbreviation == " ")
                     continue;
+                // Check if abbreviation is inside the CVS file:
+                StreamReader sr = new StreamReader(@"../../../DataLayer/" + abbreviation_list);
                 string strline = "";
                 string[] _values = null;
                 int x = 0;
@@ -143,27 +151,21 @@ namespace Coursework2
                     x++;
                     strline = sr.ReadLine();
                     _values = strline.Split(',');
-                    // MessageBox.Show(_values[0]);
                     // print Any day Now, the extension of ADN
                     // thjebug weith "ADN" instead possible_abbreviation eventually
                     if (_values[0] == possible_abbreviation)
                     {
-                        extended_abbreviation = _values[1];
-                        MessageBox.Show(_values[1]);
+                        //MessageBox.Show(_values[1]);
                         // Here add the enxtation with this structure: <FullExtansion>
-                        //extended_abbreviation = ;
-                        //extended_abbreviation = extended_abbreviation.Insert(0, "<");
-
+                        string extended_abbreviation = " <" + _values[1] + "> ";
                         // Add the entended appreviation at the position of where we found them 
-                        message = message.Insert(i, _values[1]);
+                        message = message.Insert(i, extended_abbreviation);
+                        return message;
                     }
                 }
-
             }
-            // Close file stream after have checked all possible abbreviations
-            sr.Close();
-            // Return extended vertsion of the message. 
-            return message;
+                // Return extended vertsion of the message. 
+                return message;
         }
 
         /*
