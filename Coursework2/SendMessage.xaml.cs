@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataLayer;
-
+using System.Collections.Specialized;
 namespace Coursework2
 {
     /// <summary>
@@ -32,7 +32,9 @@ namespace Coursework2
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        private string path_abbreviation_list = "../../../DataLayer/textwords.csv";
+        private const string PATH_ABBREVIATION_LIST = "../../../DataLayer/textwords.csv";
+        private const int MAX_LENGTH_TWITTER_ID = 16;
+
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
 
@@ -108,16 +110,22 @@ namespace Coursework2
          *      body the meaning of this abbreaviation. 
          *      It returns the extended version of the message. 
          */
-        string extend_any_abbreviation(string message, int len_message)
+        /*
+  * extend_any_abbreviation(message, len_message):
+  *      It search on textwords.csv file any possible abbreaviation and add to the message
+  *      body the meaning of this abbreaviation. 
+  *      It returns the extended version of the message. 
+  */
+        string ExtendAbbreviationInsideMessage(string message, int len_message)
         {
             // Check if abbreviation is inside the CVS file:
-            StreamReader sr = new StreamReader(@"" + path_abbreviation_list);
+            StreamReader sr = new StreamReader(@"" + PATH_ABBREVIATION_LIST);
             string possible_abbreviation = "";
             string extended_abbreviation;
             for (int i = 0; i < len_message; i++)
             {
                 possible_abbreviation = "";
-                while (i < len_message)
+                while (i < len_message && message[i] != ' ')
                 {
                     if (message[i] >= 'A' && message[i] <= 'Z' || message[i] == '/')
                         possible_abbreviation += message[i];
@@ -125,7 +133,7 @@ namespace Coursework2
                 }
                 // Now, we have the possible abbreviation; 
                 // If abbreviation is empty skype
-                if (string.IsNullOrWhiteSpace(possible_abbreviation) || possible_abbreviation.Length == 1)
+                if (string.IsNullOrWhiteSpace(possible_abbreviation))
                     continue;
                 string strline = "";
                 string[] _values = null;
@@ -135,6 +143,7 @@ namespace Coursework2
                     x++;
                     strline = sr.ReadLine();
                     _values = strline.Split(',');
+                    // MessageBox.Show(_values[0]);
                     // print Any day Now, the extension of ADN
                     // thjebug weith "ADN" instead possible_abbreviation eventually
                     if (_values[0] == possible_abbreviation)
@@ -156,7 +165,6 @@ namespace Coursework2
             // Return extended vertsion of the message. 
             return message;
         }
-
 
         /*
          * HideUrls(message, len_message)
@@ -210,27 +218,68 @@ namespace Coursework2
             return result;
         }
 
-
-        /*
-        * PrintCategorisedData (header, sender, message, category)
-        *  Output the message ID, message body, category, sender and list of hashtag and urls; 
-        */
-        void PrintCategorisedData(string header, string sender, string message, char category)
+        public bool IsIncidentReportEmail(string subject)
         {
-            MessageBox.Show("Message ID: " + header
-                + Environment.NewLine
-                + "Sender: " + sender
-                + Environment.NewLine
-                + "Message body: " + message
-                + Environment.NewLine
-                + "Category: " + category
-                + Environment.NewLine
-                + string.Join(Environment.NewLine, hashtag)
-                + Environment.NewLine
-                + string.Join(Environment.NewLine, urls)
-            );
+            // Search the subject of the email has a prority keyword  /* or a bit longer: (stringArray.Any(s => stringToCheck.Contains(s))) */
+            if (urgent_email_categories.Any(subject.Contains))
+                return true;
+            else
+                return false;
         }
 
+        /*
+         * PrintCategorisedData (header, sender, message, category)
+         *  Output the message ID, message body, category, sender and list of hashtag and urls; 
+         */
+        void PrintCategorisedData(string header, string sender, string message, string subject, char category)
+        {
+            if (category == 'S')
+            {
+                MessageBox.Show("Message ID: " + header
+                     + Environment.NewLine
+                     + "Category: ⦁	SMS Message"
+                     + Environment.NewLine
+                     + "Mobile Phone Number Sender: " + sender
+                     + Environment.NewLine
+                     + "Message body: " + message
+                     + Environment.NewLine
+                     + string.Join(Environment.NewLine, hashtag)
+                     + Environment.NewLine
+                     + string.Join(Environment.NewLine, urls)
+                 );
+            }
+            else if (category == 'E')
+            {
+                MessageBox.Show("Message ID: " + header
+                    + Environment.NewLine
+                    + "Category: ⦁	Email Messages"
+                    + Environment.NewLine
+                    + "Sender email: " + sender
+                    + Environment.NewLine
+                    + "Subject: " + subject
+                    + Environment.NewLine
+                    + "Message body: " + message
+                    + Environment.NewLine
+                    + string.Join(Environment.NewLine, urls)
+                );
+            }
+            else if (category == 'T')
+            {
+                MessageBox.Show("Message ID: " + header
+                 + Environment.NewLine
+                 + "Category:  ⦁	Tweet"
+                 + Environment.NewLine
+                 + "Twitter user Id: " + sender
+                 + Environment.NewLine
+                 + "Message body: " + message
+                 + Environment.NewLine
+                 + string.Join(Environment.NewLine, hashtag)
+                 + Environment.NewLine
+                 + string.Join(Environment.NewLine, urls)
+             );
+            }
+
+        }
         /*
     * IsValidEmail(possible email): returns true if a given string respect the email format
     */
@@ -255,6 +304,7 @@ namespace Coursework2
    */
         public string GetTwitterUserID(string message, int len_message)
         {
+            const string TWEET_ID_NOT_FOUND = "Twttier User ID not found - Max Twitter ID Length allowed: 16";
             string twitter_id;
             // Iterate inside the message, check if any word is an email, if yes, return it. 
             for (int i = 0; i < len_message; i++)
@@ -265,14 +315,14 @@ namespace Coursework2
                     twitter_id += message[i];
                     i += 1;
                 }
-                if (!string.IsNullOrWhiteSpace(twitter_id))
+                if (!string.IsNullOrWhiteSpace(twitter_id) && twitter_id.Length <= MAX_LENGTH_TWITTER_ID)
                 {
                     if (twitter_id[0] == '@')
                         return twitter_id;
                 }
             }
             // No EMAIL Id has been found; 
-            return "NO TWITTER USER ID FOUND";
+            return TWEET_ID_NOT_FOUND;
         }
 
         /*
@@ -345,8 +395,10 @@ namespace Coursework2
 
         public void ManageMessage(string message)
         {
-            ManageData m = new ManageData();
+            DataManagement m = new DataManagement(); 
             string sender_ = "Sender unkown";
+            string subject = "";
+            string priority_email;
             // Understand message type: Twitte, message, email, NONE (not indified)
             string message_id = GetMessageId(message);
             if (message_id == "N")
@@ -354,7 +406,7 @@ namespace Coursework2
                 MessageBox.Show("Message nature has not be recognized");
             }
             int len_message = message.Length;
-            if (message_id[0] == 'E' && len_message > 1028 || message_id[0] != 'E' && len_message > 140)
+            if (message_id[0] == 'E' && len_message > 1028 || message_id[0] != 'E' && len_message > 156)
             {
                 MessageBox.Show("Your messsage is too long");
                 return;
@@ -365,43 +417,52 @@ namespace Coursework2
                 sender_ = GetMobilePhoneSender(message, len_message);
 
                 // Extend abbreviatios 
-                message = extend_any_abbreviation(message, len_message);
-                PrintCategorisedData(message_id, sender_, message, message_id[0]);
-
+                message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Store in json file 
-                m.SerializeMessage(message_id, sender_, message, message_id[0], ref urls, ref hashtag);
+                m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
             }
             else if (message_id[0] == 'E')
             {
-                // search for an email in the body message; 
-                sender_ = GetEmailSender(message, len_message);
+
+                int end_email_index = 0;
+                sender_ = GetEmailSender(message, len_message, ref end_email_index);
+                // Get email subject(20 chars after email sender);
+
+                int i = 0;
+                while (i < 20 && end_email_index < len_message)
+                {
+                    subject += message[end_email_index];
+                    end_email_index += 1;
+                    i += 1;
+                }
+                bool incident = IsIncidentReportEmail(subject);
+                if (incident == true)
+                    priority_email = "Incident Report";
+                else
+                    priority_email = "Regular Message";
                 // Call function to extend abbreviation
-                message = extend_any_abbreviation(message, len_message);
+                message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Hide URLs and store them in a list and Store URLS in LIST
                 message = HideUrls(message, len_message);
-                PrintCategorisedData(message_id, sender_, message, message_id[0]);
-
                 // Store in json file 
-                m.SerializeMessage(message_id, sender_, message, message_id[0], ref urls, ref hashtag);
+                m.SerializeMessage(message_id, sender_, message, subject, message_id[0], priority_email, ref urls, ref hashtag);
             }
             else if (message_id[0] == 'T')
             {
 
                 // Extend messager abbreviation; 
                 // Extend messager abbreviation; 
-                message = extend_any_abbreviation(message, len_message);
+                message = ExtendAbbreviationInsideMessage(message, len_message);
 
                 // search ID twitter user in the body
                 sender_ = GetTwitterUserID(message, len_message);
                 // search all hashtag and store them in a list;
                 StoreListOfHashtag(message, len_message);
-                PrintCategorisedData(message_id, sender_, message, message_id[0]);
 
                 // Store message in json file 
-                m.SerializeMessage(message_id, sender_, message, message_id[0], ref urls, ref hashtag);
+                m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
             }
         }
-
         /*
          *   Button_Send_Click(): used to validate the input received
          *   and store them if necessary
@@ -442,22 +503,26 @@ namespace Coursework2
          *      Search inside the message string an email and returs it. 
          *      If there are no email inside the text, it will return: "NOT EMAIL ID FOUND"
          */
-        public string GetEmailSender(string message, int len_message)
+        public string GetEmailSender(string message, int len_message, ref int index_end_email)
         {
             string word;
             // Iterate inside the message, check if any word is an email, if yes, return it. 
             for (int i = 0; i < len_message; i++)
             {
                 word = "";
-                while (i < len_message && message[i] != ' ' ||  i < len_message && char.IsLetterOrDigit(message[i]))
+                while (i < len_message && message[i] != ' ')
                 {
                     word += message[i];
                     i += 1;
                 }
-                if (!string.IsNullOrWhiteSpace(word) && word.Length > 4)
+                if (!string.IsNullOrWhiteSpace(word))
                 {
                     if (IsValidEmail(word))
+                    {
+                        index_end_email = i;
                         return word;
+                    }
+
                 }
             }
             // No EMAIL Id has been found; 
