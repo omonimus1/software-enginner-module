@@ -8,7 +8,7 @@ namespace BankTest
     public class UnitTest1
     {
         SendMessage c = new SendMessage();
-        
+
         [TestMethod]
         public void TestExtractionTwitterSender()
         {
@@ -28,16 +28,8 @@ namespace BankTest
             int len = message.Length;
             // Act
             string result_elaboration = c.GetMobilePhoneSender(message, len);
-            
-            Assert.AreEqual(expected, result_elaboration);
-        }
 
-        public void ExtractSenderEmail()
-        {
-            string message = "Hello this an email davidepollicino2015@gmail.com E123456789";
-            string email_expected = "davidepollicino2015@gmail.com";
-            int i = 0;
-            Assert.AreEqual(email_expected, c.GetEmailSender(message, message.Length, ref i));
+            Assert.AreEqual(expected, result_elaboration);
         }
 
         [TestMethod]
