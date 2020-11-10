@@ -36,7 +36,7 @@ namespace BankTest
         public void TestExtendMessage()
         {
             string message = "AAP S123456789 ciaone this has a abbreviation";
-            string expected = "AAP <Always a pleasure> AAP S123456789 ciaone this has a abbreviation";
+            string expected = "AAP <Always a pleasure> S123456789 ciaone this has a abbreviation";
             Assert.AreEqual(expected, c.ExtendAbbreviationInsideMessage(message, message.Length)); ;
         }
 
@@ -51,7 +51,7 @@ namespace BankTest
         [TestMethod]
         public void TestExractionMessageNature()
         {
-            string message_id = "E23232323";
+            string message_id = "E123456789";
             char expected_id = 'E';
             string result_elaboration = c.GetMessageId(message_id);
             Assert.AreEqual(expected_id, result_elaboration[0]);

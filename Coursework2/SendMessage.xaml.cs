@@ -157,7 +157,7 @@ namespace Coursework2
                     {
                         //MessageBox.Show(_values[1]);
                         // Here add the enxtation with this structure: <FullExtansion>
-                        string extended_abbreviation = " <" + _values[1] + "> ";
+                        string extended_abbreviation = " <" + _values[1] + ">";
                         // Add the entended appreviation at the position of where we found them 
                         message = message.Insert(i, extended_abbreviation);
                         return message;

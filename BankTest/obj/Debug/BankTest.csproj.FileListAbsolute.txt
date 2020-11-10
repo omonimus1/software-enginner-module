@@ -7,13 +7,11 @@ C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Coursework2.
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\DataLayer.dll
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
-C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Newtonsoft.Json.dll
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Coursework2.pdb
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Coursework2.exe.config
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\DataLayer.pdb
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\bin\Debug\Newtonsoft.Json.xml
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\obj\Debug\BankTest.csprojAssemblyReference.cache
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\obj\Debug\BankTest.csproj.CoreCompileInputs.cache
 C:\Users\pc\Desktop\dev\software-enginner-module\BankTest\obj\Debug\BankTest.csproj.CopyComplete
