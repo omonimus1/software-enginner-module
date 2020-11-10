@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataLayer;
 using System.Collections.Specialized;
+using System.Globalization;
+
 namespace Coursework2
 {
     /// <summary>
@@ -51,6 +53,10 @@ namespace Coursework2
             this.TextMessage = txtBoxMessage.Text;
         }
 
+        private void TextBoxSubject_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
         public bool IsAMessageID(string possible_id)
         {
             // Check if from index from the second char to the last, all chars are digits; 
@@ -127,15 +133,15 @@ namespace Coursework2
             // Expand abbreviations
             // path_abbreviation_list
             string possible_abbreviation = "";
-            
+
             for (int i = 0; i < len_message; i++)
             {
                 possible_abbreviation = "";
                 while (i < len_message && message[i] == '/' || i < len_message && message[i] >= 'A' && message[i] <= 'Z')
                 {
-                        possible_abbreviation += message[i];
-                        i += 1;
-  
+                    possible_abbreviation += message[i];
+                    i += 1;
+
                 }
                 // Now, we have the possible abbreviation; 
                 // If abbreviation is empty skype
@@ -164,8 +170,8 @@ namespace Coursework2
                     }
                 }
             }
-                // Return extended vertsion of the message. 
-                return message;
+            // Return extended vertsion of the message. 
+            return message;
         }
 
         /*
@@ -199,7 +205,7 @@ namespace Coursework2
 
                     // Check if the current substring is a string
                     if (IsHttpUrl(possible_url))
-                    { 
+                    {
                         urls.Add(possible_url);
                         message_without_link = message.Replace(possible_url, "<URL Quarantined>");
                     }
@@ -213,14 +219,14 @@ namespace Coursework2
          */
         public bool IsHttpUrl(string possible_url)
         {
-           
+
             Uri uriResult;
-            bool result =  Uri.TryCreate(possible_url, UriKind.Absolute, out uriResult)
+            bool result = Uri.TryCreate(possible_url, UriKind.Absolute, out uriResult)
                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
             return result;
         }
 
-        public bool IsIncidentReportEmail(string subject)
+        public bool IsIncidentReportEmail(String[] subject)
         {
             // Search the subject of the email has a prority keyword  /* or a bit longer: (stringArray.Any(s => stringToCheck.Contains(s))) */
             if (urgent_email_categories.Any(subject.Contains))
@@ -394,12 +400,83 @@ namespace Coursework2
                 }
             }
         }
-
-        public void ManageMessage(string message)
+        public bool IsSubjectIncidentReport(string subject)
         {
-            DataManagement m = new DataManagement(); 
+            Boolean hasDate = false;
+          DateTime dateTime = new DateTime();
+            String[] inputText = subject.Split(' ');//split on a whitespace
+
+            //Use the Parse() method
+            try
+            {
+                dateTime = DateTime.Parse(inputText[1]);
+                hasDate = true;
+                //break;//no need to execute/loop further if you have your date
+                if (hasDate == true && inputText[0] == "SIR")
+                    return true;
+                else
+                {
+                    return false; 
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while checking if email is priority Email");
+                return false; 
+            }
+        }
+
+        bool IsSortCode(string possible_sort_code)
+        {
+            Regex r = new Regex(@"\b[0-9]{2}-?[0-9]{2}-?[0-9]{2}\b");
+            Match match1 = r.Match(possible_sort_code);
+            if (match1.Success)
+            {
+                return true; 
+            }
+            else
+            {
+                return false;
+            }
+        }
+        string GetSortCode(String[] inputText)
+        {
+            foreach (string word in inputText)
+            {
+                if (IsSortCode(word))
+                    return word; 
+            }
+            return "Error"; 
+        }
+
+        string GetNatureIncendent(String[] message_array)
+        {
+            int len = message_array.Length;
+            string possible_combination;
+            for (int i = 0; i < len - 1; i++)
+            {
+                possible_combination = message_array + " " + message_array[i + 1];
+                if (urgent_email_categories.Contains(message_array[i]))
+                {
+                    return message_array[i]; 
+                }
+                if (urgent_email_categories.Contains(possible_combination))
+                    return possible_combination;
+            }
+            // Check if the last word of the body message is an alert kwyword
+            if (urgent_email_categories.Contains(message_array[len-1]))
+            {
+                return message_array[len-1];
+            }
+            // No mathes found
+            return "Error";
+        }
+
+        public void ManageMessage(string message, string subject)
+        {
+            DataManagement m = new DataManagement();
             string sender_ = "Sender unkown";
-            string subject = "";
+            //string subject = "";
             string priority_email;
             // Understand message type: Twitte, message, email, NONE (not indified)
             string message_id = GetMessageId(message);
@@ -426,27 +503,46 @@ namespace Coursework2
             }
             else if (message_id[0] == 'E')
             {
-
+               
                 int end_email_index = 0;
                 sender_ = GetEmailSender(message, len_message, ref end_email_index);
                 // Get email subject(20 chars after email sender);
-
+                /*
                 int i = 0;
                 while (i < 20 && end_email_index < len_message)
                 {
                     subject += message[end_email_index];
                     end_email_index += 1;
                     i += 1;
-                }
-                bool incident = IsIncidentReportEmail(subject);
-                if (incident == true)
-                    priority_email = "Incident Report";
-                else
-                    priority_email = "Regular Message";
+                }*/
                 // Call function to extend abbreviation
                 message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Hide URLs and store them in a list and Store URLS in LIST
                 message = HideUrls(message, len_message);
+
+                bool is_subject_of_a_incident_report = IsSubjectIncidentReport(subject);
+                // Convert message in aray of string in according to the white space converter 
+                String[] message_array = subject.Split(' ');//split on a whitespace
+                string sort_code = GetSortCode(message_array);
+                // Insert the string "Sort Code:" at the beginning of the bank sort code
+                sort_code = sort_code.Insert(0, "Sort Code: ");
+                string nature_of_incident = GetNatureIncendent(message_array);
+                nature_of_incident = nature_of_incident.Insert(0, "Nature Of Incident: ");
+                bool incident = IsIncidentReportEmail(message_array);
+                
+                
+                if (nature_of_incident != "Error")
+                {
+                    priority_email = "Incident Report";
+                    // Serialize subject, Sort code and Nature of incident
+                    m.SerializeSirList(sort_code, nature_of_incident);
+                    // Print All the content of the SIR List 
+
+                }
+                    
+                else
+                    priority_email = "Regular Message";
+
                 PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
 
                 // Store in json file 
@@ -476,9 +572,9 @@ namespace Coursework2
         public void Button_Send_Click(object sender, RoutedEventArgs e)
         {
             string message = txtBoxMessage.Text;
+            string subject = txtBoxSubject.Text;
 
-
-            if (string.IsNullOrWhiteSpace(message))
+            if (string.IsNullOrWhiteSpace(message) || string.IsNullOrWhiteSpace(subject))
             {
                 MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
                 return;
@@ -486,7 +582,7 @@ namespace Coursework2
             else
             {
                 // Startup validaion message process
-                ManageMessage(message);
+                ManageMessage(message, subject);
             }
         }
 
@@ -534,5 +630,6 @@ namespace Coursework2
             // No EMAIL Id has been found; 
             return "NOT EMAIL ID FOUND";
         }
+
     }
 }

@@ -11,5 +11,7 @@
         <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Right" Margin="0,265,295,0" VerticalAlignment="Top" Click="Button_Clear_Click" Width="65"/>
         <Label x:Name="lblMessage" Content="Message" HorizontalAlignment="Left" Margin="184,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.555,0.313"/>
         <TextBox x:Name="txtBoxMessage" HorizontalAlignment="Left" Margin="255,168,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="217" TextChanged="TextBoxMessage_TextChanged" VerticalScrollBarVisibility="Visible" Text="" />
+        <Label x:Name="lblSubject" Content="Subjecrt" HorizontalAlignment="Left" Margin="193,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.555,0.313"/>
+        <TextBox x:Name="txtBoxSubject" HorizontalAlignment="Left" Margin="255,112,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="217" TextChanged="TextBoxSubject_TextChanged" VerticalScrollBarVisibility="Visible" Text="" />
     </Grid>
 </Window>
