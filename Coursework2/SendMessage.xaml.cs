@@ -117,7 +117,7 @@ namespace Coursework2
   *      body the meaning of this abbreaviation. 
   *      It returns the extended version of the message. 
   */
-        string ExtendAbbreviationInsideMessage(string message, int len_message)
+        public string ExtendAbbreviationInsideMessage(string message, int len_message)
         {
             // Process storage and check if abbreviations needs to be extended
             // Process storage and check if abbreviations needs to be extended
