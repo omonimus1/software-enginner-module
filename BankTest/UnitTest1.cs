@@ -23,13 +23,29 @@ namespace BankTest
         [TestMethod]
         public void ExtractMessageSenderNumber()
         {
-            string message = "please call me back at +447222555555";
+            string message = "please s1346579 call me back at +447222555555";
             string expected = "+447222555555";
             int len = message.Length;
             // Act
             string result_elaboration = c.GetMobilePhoneSender(message, len);
 
             Assert.AreEqual(expected, result_elaboration);
+        }
+
+        [TestMethod]
+        public void TestExtendMessage()
+        {
+            string message = "AAP S123456789 ciaone this has a abbreviation";
+            string expected = "AAP <Always a pleasure> AAP S123456789 ciaone this has a abbreviation";
+            Assert.AreEqual(expected, c.ExtendAbbreviationInsideMessage(message, message.Length)); ;
+        }
+
+        [TestMethod]
+        public void ExtractEmailId()
+        {
+            int start_subject = 0; 
+            string message = "hello the id could be E12345679, contact me at davidepollicino2015@gmail.com";
+            Assert.AreEqual("davidepollicino2015@gmail.com", c.GetEmailSender(message, message.Length,ref start_subject));
         }
 
         [TestMethod]

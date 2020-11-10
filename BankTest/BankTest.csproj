@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Coursework2\Coursework2.csproj">
+    <ProjectReference Include="..\Coursework2\PresentationLayer.csproj">
       <Project>{373023a1-028c-4f59-b7ee-2e9bc0869890}</Project>
-      <Name>Coursework2</Name>
+      <Name>PresentationLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{61fb4f5d-d513-41f0-a7b0-f26e36b97e85}</Project>
