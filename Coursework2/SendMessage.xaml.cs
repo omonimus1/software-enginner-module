@@ -452,7 +452,7 @@ namespace Coursework2
                 if (IsSortCode(word))
                     return word; 
             }
-            return "Not Found"; 
+            return "Sort Code Not Found"; 
         }
 
         string GetNatureIncendent(String[] message_array)
@@ -474,7 +474,7 @@ namespace Coursework2
             //string subject = "";
             string priority_email;
             // Understand message type: Twitte, message, email, NONE (not indified)
-            string message_id = GetMessageId(message);
+            string message_id = GetMessageId(subject);
             if (message_id == "N")
             {
                 MessageBox.Show("Message nature has not be recognized");
@@ -502,14 +502,7 @@ namespace Coursework2
                 int end_email_index = 0;
                 sender_ = GetEmailSender(message, len_message, ref end_email_index);
                 // Get email subject(20 chars after email sender);
-                /*
-                int i = 0;
-                while (i < 20 && end_email_index < len_message)
-                {
-                    subject += message[end_email_index];
-                    end_email_index += 1;
-                    i += 1;
-                }*/
+
                 // Call function to extend abbreviation
                 message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Hide URLs and store them in a list and Store URLS in LIST
@@ -517,13 +510,14 @@ namespace Coursework2
 
                 bool is_subject_of_a_incident_report = IsSubjectIncidentReport(subject);
                 // Convert message in aray of string in according to the white space converter 
-                String[] message_array = subject.Split(' ');//split on a whitespace
-                string sort_code = GetSortCode(message_array);
+                String[] subject_array = subject.Split(' ');//split on a whitespace
+                
+                string sort_code = GetSortCode(subject_array);
                 // Insert the string "Sort Code:" at the beginning of the bank sort code
                 sort_code = sort_code.Insert(0, "Sort Code: ");
-                string nature_of_incident = GetNatureIncendent(message_array);
-                nature_of_incident = nature_of_incident.Insert(0, "Nature Of Incident: ");
-                bool incident = IsIncidentReportEmail(message_array);
+                string nature_of_incident = GetNatureIncendent(subject_array);
+                // nature_of_incident = nature_of_incident.Insert(0, "Nature Of Incident: ");
+                bool incident = IsIncidentReportEmail(subject_array);
                 
                 
                 if (nature_of_incident != "Not Found")
@@ -587,6 +581,7 @@ namespace Coursework2
         public void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             txtBoxMessage.Text = "";
+            txtBoxSubject.Text = "";
         }
 
         public void TextBox_TextChanged(object sender, TextChangedEventArgs e)

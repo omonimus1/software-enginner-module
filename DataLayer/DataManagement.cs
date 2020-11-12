@@ -21,7 +21,7 @@ namespace DataLayer
             var sir_list_object = new
             {
                 sort_code = sort_code,
-                nature = nature,
+                nature_message = nature,
             };
             // Call function to serialize sirList
             SerializeInJson(sir_list_object, PATH_TO_SIR_LIST);
