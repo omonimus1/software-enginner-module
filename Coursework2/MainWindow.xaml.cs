@@ -60,7 +60,7 @@ namespace Coursework2
                     // Process line
                 }
                 SendMessage s = new SendMessage();
-                s.ManageMessage(message);
+                s.ManageMessage(message, "");
             }
         }
     }

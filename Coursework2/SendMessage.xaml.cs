@@ -42,7 +42,7 @@ namespace Coursework2
         List<string> urls = new List<string>();
 
         // Existing Category of important email 
-        string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "terrorism",
+        string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "tNot Foundism",
             "suspicious incident", "intelligence", "cash loss"};
 
         /*
@@ -251,8 +251,10 @@ namespace Coursework2
                      + Environment.NewLine
                      + "Message body: " + message
                      + Environment.NewLine
+                     + "List of Hashtags and frequency found in the message:"
                      + string.Join(Environment.NewLine, hashtag)
                      + Environment.NewLine
+                     + "List of URLS found in the message"
                      + string.Join(Environment.NewLine, urls)
                  );
             }
@@ -268,6 +270,8 @@ namespace Coursework2
                     + Environment.NewLine
                     + "Message body: " + message
                     + Environment.NewLine
+                    + "List of URLS found in the message"
+                    + Environment.NewLine
                     + string.Join(Environment.NewLine, urls)
                 );
             }
@@ -281,9 +285,11 @@ namespace Coursework2
                  + Environment.NewLine
                  + "Message body: " + message
                  + Environment.NewLine
-                 + string.Join(Environment.NewLine, hashtag)
-                 + Environment.NewLine
-                 + string.Join(Environment.NewLine, urls)
+                + "List of Hashtags and frequency found in the message:"
+                + string.Join(Environment.NewLine, hashtag) 
+                + Environment.NewLine
+                + "List of URLS found in the message"
+                + string.Join(Environment.NewLine, urls)
              );
             }
 
@@ -421,7 +427,7 @@ namespace Coursework2
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while checking if email is priority Email");
+                Console.WriteLine("Not Found while checking if email is priority Email");
                 return false; 
             }
         }
@@ -446,30 +452,19 @@ namespace Coursework2
                 if (IsSortCode(word))
                     return word; 
             }
-            return "Error"; 
+            return "Not Found"; 
         }
 
         string GetNatureIncendent(String[] message_array)
         {
             int len = message_array.Length;
-            string possible_combination;
-            for (int i = 0; i < len - 1; i++)
+            for (int i = 0; i < len; i++)
             {
-                possible_combination = message_array + " " + message_array[i + 1];
-                if (urgent_email_categories.Contains(message_array[i]))
-                {
-                    return message_array[i]; 
-                }
-                if (urgent_email_categories.Contains(possible_combination))
-                    return possible_combination;
-            }
-            // Check if the last word of the body message is an alert kwyword
-            if (urgent_email_categories.Contains(message_array[len-1]))
-            {
-                return message_array[len-1];
+                if (Array.Exists(urgent_email_categories, element => element == message_array[i]))
+                    return message_array[i];
             }
             // No mathes found
-            return "Error";
+            return "Not Found";
         }
 
         public void ManageMessage(string message, string subject)
@@ -531,7 +526,7 @@ namespace Coursework2
                 bool incident = IsIncidentReportEmail(message_array);
                 
                 
-                if (nature_of_incident != "Error")
+                if (nature_of_incident != "Not Found")
                 {
                     priority_email = "Incident Report";
                     // Serialize subject, Sort code and Nature of incident
@@ -576,7 +571,7 @@ namespace Coursework2
 
             if (string.IsNullOrWhiteSpace(message) || string.IsNullOrWhiteSpace(subject))
             {
-                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
+                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Not Found");
                 return;
             }
             else

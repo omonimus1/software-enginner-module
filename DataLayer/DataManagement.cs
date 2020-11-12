@@ -12,6 +12,10 @@ namespace DataLayer
         private const string PATH_TO_SIR_LIST = "../../../DataLayer/sir_list.json";
         private const string PATH_TO_TRENDING_HASHTAG_LIST = "../../../DataLayer/glabal_hashtag.json";
 
+        public void SerializeTrendingList(Dictionary<string, int> dic)
+        {
+
+        }
         public void SerializeSirList(string sort_code , string nature)
         {
             var sir_list_object = new
@@ -23,33 +27,36 @@ namespace DataLayer
             SerializeInJson(sir_list_object, PATH_TO_SIR_LIST);
 
             // try 1 sec to print it
-            DeserializeSirList(); 
-        }  
-
-        public void DeserializeSirList()
-        {
-            //string filepath = "../../json1.json";
-            string result = string.Empty;
-            using (StreamReader r = new StreamReader(PATH_TO_SIR_LIST))
-            {
-                var json = r.ReadToEnd();
-                var jobj = JObject.Parse(json);
-                foreach (var item in jobj.Properties())
-                {
-                    item.Value = item.Value.ToString().Replace("v1", "v2");
-                }
-                result = jobj.ToString();
-                Console.WriteLine(result);
-            }
-            // File.WriteAllText(filepath, result);
-            // JSON is the string
-            /*JObject parsed = JObject.Parse(json);
-
-            foreach (var pair in parsed)
-            {
-                Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-            }*/
+            //DeserializeSirList();
         }
+
+        /*
+         public void DeserializeSirList()
+         {
+
+             //string filepath = "../../json1.json";
+             string result = string.Empty;
+             using (StreamReader r = new StreamReader(PATH_TO_SIR_LIST))
+             {
+                 var json = r.ReadToEnd();
+                 var jobj = JObject.Parse(PATH_TO_SIR_LIST);
+                 foreach (var item in jobj.Properties())
+                 {
+                     item.Value = item.Value.ToString().Replace("v1", "v2");
+                 }
+                 result = jobj.ToString();
+                 Console.WriteLine(result);
+             } 
+             // File.WriteAllText(filepath, result);
+             // JSON is the string
+             JObject parsed = JObject.Parse(PATH_TO_SIR_LIST);
+
+             foreach (var pair in parsed)
+             {
+                 Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+             }
+         }
+             */
 
         public void SerializeInJson(object objectToSerialize, string filename)
         {
