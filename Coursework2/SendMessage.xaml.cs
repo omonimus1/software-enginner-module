@@ -239,7 +239,7 @@ namespace Coursework2
          * PrintCategorisedData (header, sender, message, category)
          *  Output the message ID, message body, category, sender and list of hashtag and urls; 
          */
-        void PrintCategorisedData(string header, string sender, string message, string subject, char category)
+        void PrintCategorisedData(string header, string sender, string message, string subject, char category, string emergency_nature)
         {
             if (category == 'S')
             {
@@ -263,6 +263,8 @@ namespace Coursework2
                 MessageBox.Show("Message ID: " + header
                     + Environment.NewLine
                     + "Category:⦁Email Messages"
+                    + Environment.NewLine
+                    + "Emergecy Nature: " + emergency_nature
                     + Environment.NewLine
                     + "Sender email: " + sender
                     + Environment.NewLine
@@ -494,7 +496,7 @@ namespace Coursework2
                 message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Store in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
-                PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
+                PrintCategorisedData(message_id, sender_, message, subject, message_id[0], "none");
             }
             else if (message_id[0] == 'E')
             {
@@ -530,9 +532,13 @@ namespace Coursework2
                 }
                     
                 else
+                {
                     priority_email = "Regular Message";
+                    nature_of_incident = "None - It's a regular message";
+                }
+                    
 
-                PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
+                PrintCategorisedData(message_id, sender_, message, subject, message_id[0], nature_of_incident);
 
                 // Store in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], priority_email, ref urls, ref hashtag);
@@ -548,7 +554,7 @@ namespace Coursework2
                 sender_ = GetTwitterUserID(message, len_message);
                 // search all hashtag and store them in a list;
                 StoreListOfHashtag(message, len_message);
-                PrintCategorisedData(message_id, sender_, message, subject, message_id[0]);
+                PrintCategorisedData(message_id, sender_, message, subject, message_id[0], "none");
 
                 // Store message in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
