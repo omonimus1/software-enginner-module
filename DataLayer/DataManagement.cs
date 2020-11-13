@@ -27,6 +27,8 @@ namespace DataLayer
 
         public void SerializeTrendingList(Dictionary<string, int> trending_hashtag)
         {
+            // Erase content of the trending hashtag file
+            System.IO.File.WriteAllText(@""+PATH_TO_TRENDING_HASHTAG_LIST, string.Empty);
             string json_string = JsonConvert.SerializeObject(trending_hashtag, Formatting.Indented);
             using (var tw = new StreamWriter(@"" + PATH_TO_TRENDING_HASHTAG_LIST, true))
             {
@@ -51,28 +53,7 @@ namespace DataLayer
         /*
          public void DeserializeSirList()
          {
-
-             //string filepath = "../../json1.json";
-             string result = string.Empty;
-             using (StreamReader r = new StreamReader(PATH_TO_SIR_LIST))
-             {
-                 var json = r.ReadToEnd();
-                 var jobj = JObject.Parse(PATH_TO_SIR_LIST);
-                 foreach (var item in jobj.Properties())
-                 {
-                     item.Value = item.Value.ToString().Replace("v1", "v2");
-                 }
-                 result = jobj.ToString();
-                 Console.WriteLine(result);
-             } 
-             // File.WriteAllText(filepath, result);
-             // JSON is the string
-             JObject parsed = JObject.Parse(PATH_TO_SIR_LIST);
-
-             foreach (var pair in parsed)
-             {
-                 Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-             }
+               
          }
              */
 

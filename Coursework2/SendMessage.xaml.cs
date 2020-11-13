@@ -389,6 +389,8 @@ namespace Coursework2
             DataManagement d = new DataManagement();
             // Dictionary<string, int> global_hashtag = d.LoadTrendingHashtagList(); 
             Dictionary<string, int> global_hashtag = new Dictionary<string, int>();
+            global_hashtag = d.LoadTrendingHashtagList();
+
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
             for (int i = 0; i < len_message; i++)
