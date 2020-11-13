@@ -30,6 +30,7 @@ namespace Coursework2
         {
             InitializeComponent();
         }
+        DataManagement data = new DataManagement();
 
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
@@ -38,6 +39,9 @@ namespace Coursework2
         string abbreviation_list = "textwords.csv";
         private const int MAX_LENGTH_TWITTER_ID = 16;
 
+
+        Dictionary<string, int> global_hashtag = new Dictionary<string, int>();
+        Dictionary<string, string> sir_list_content = new Dictionary<string, string>();
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
 
@@ -235,6 +239,22 @@ namespace Coursework2
                 return false;
         }
 
+        void PrintContentSirList()
+        {
+            // Load SirList Content
+            sir_list_content = data.LoadSirList();
+            // Print sir list
+           MessageBox.Show(string.Join(Environment.NewLine, sir_list_content) , "SIR LIST");
+            // Clear content of the sir list
+            sir_list_content.Clear();
+        }
+
+        void PrintAndEraseGlobalHashtag()
+        {
+            MessageBox.Show(string.Join(Environment.NewLine, global_hashtag), "Trend Hashtag List");
+            global_hashtag.Clear();
+        }
+
         /*
          * PrintCategorisedData (header, sender, message, category)
          *  Output the message ID, message body, category, sender and list of hashtag and urls; 
@@ -385,11 +405,7 @@ namespace Coursework2
          */
         public void StoreListOfHashtag(string message, int len_message)
         {
-            // Load global hashtag trending list; 
-            DataManagement d = new DataManagement();
-            // Dictionary<string, int> global_hashtag = d.LoadTrendingHashtagList(); 
-            Dictionary<string, int> global_hashtag = new Dictionary<string, int>();
-            global_hashtag = d.LoadTrendingHashtagList();
+
 
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
@@ -421,7 +437,7 @@ namespace Coursework2
                 }
             }
             // Serialize global hashtag trending list
-            d.SerializeTrendingList(global_hashtag);
+            data.SerializeTrendingList(global_hashtag);
         }
         public bool IsSubjectIncidentReport(string subject)
         {
@@ -486,7 +502,6 @@ namespace Coursework2
 
         public void ManageMessage(string message, string subject)
         {
-            DataManagement m = new DataManagement();
             string sender_ = "Sender unkown";
             //string subject = "";
             string priority_email;
@@ -510,7 +525,7 @@ namespace Coursework2
                 // Extend abbreviatios 
                 message = ExtendAbbreviationInsideMessage(message, len_message);
                 // Store in json file 
-                m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
+                data.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
                 PrintCategorisedData(message_id, sender_, message, subject, message_id[0], "none");
             }
             else if (message_id[0] == 'E')
@@ -541,7 +556,7 @@ namespace Coursework2
                 {
                     priority_email = "Incident Report";
                     // Serialize subject, Sort code and Nature of incident
-                    m.SerializeSirList(sort_code, nature_of_incident);
+                    data.SerializeSirList(sort_code, nature_of_incident);
                     // Print All the content of the SIR List 
 
                 }
@@ -552,11 +567,12 @@ namespace Coursework2
                     nature_of_incident = "None - It's a regular message";
                 }
                     
-
+                // Print email details after string manipulation 
                 PrintCategorisedData(message_id, sender_, message, subject, message_id[0], nature_of_incident);
-
+                // Print all content of the sir_list.json file
                 // Store in json file 
-                m.SerializeMessage(message_id, sender_, message, subject, message_id[0], priority_email, ref urls, ref hashtag);
+                data.SerializeMessage(message_id, sender_, message, subject, message_id[0], priority_email, ref urls, ref hashtag);
+                PrintContentSirList();
             }
             else if (message_id[0] == 'T')
             {
@@ -567,13 +583,18 @@ namespace Coursework2
                 string total_message = message + subject; 
                 // search ID twitter user in the body
                 sender_ = GetTwitterUserID(total_message, len_message);
+
+                // Load global hashtag trending list; 
+                global_hashtag = data.LoadTrendingHashtagList();
+
+                \
                 // search all hashtag and store them in a list;
                 StoreListOfHashtag(total_message, len_message);
                 PrintCategorisedData(message_id, sender_, message, subject, message_id[0], "none");
 
                 // Store message in json file 
-                m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
-
+                data.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
+                PrintAndEraseGlobalHashtag();
             }
         }
         /*
@@ -587,7 +608,7 @@ namespace Coursework2
 
             if (string.IsNullOrWhiteSpace(message) || string.IsNullOrWhiteSpace(subject))
             {
-                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Not Found");
+                MessageBox.Show("Make sure you have filled sender and message textboxes", "Validation Error");
                 return;
             }
             else
