@@ -41,7 +41,6 @@ namespace Coursework2
 
 
         Dictionary<string, int> global_hashtag = new Dictionary<string, int>();
-        Dictionary<string, string> sir_list_content = new Dictionary<string, string>();
         Dictionary<string, int> hashtag = new Dictionary<string, int>();
         List<string> urls = new List<string>();
 
@@ -242,11 +241,10 @@ namespace Coursework2
         void PrintContentSirList()
         {
             // Load SirList Content
-            sir_list_content = data.LoadSirList();
+            string sir_list_content = data.LoadSirList();
             // Print sir list
-           MessageBox.Show(string.Join(Environment.NewLine, sir_list_content) , "SIR LIST");
+           MessageBox.Show(sir_list_content, "SIR LIST");
             // Clear content of the sir list
-            sir_list_content.Clear();
         }
 
         void PrintAndEraseGlobalHashtag()
@@ -587,7 +585,6 @@ namespace Coursework2
                 // Load global hashtag trending list; 
                 global_hashtag = data.LoadTrendingHashtagList();
 
-                \
                 // search all hashtag and store them in a list;
                 StoreListOfHashtag(total_message, len_message);
                 PrintCategorisedData(message_id, sender_, message, subject, message_id[0], "none");

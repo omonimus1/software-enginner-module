@@ -50,18 +50,18 @@ namespace DataLayer
             //DeserializeSirList();
         }
 
-         public Dictionary<string, string> LoadSirList()
+         public string LoadSirList()
          {
             // Read json content and store it in a string
-            Dictionary<string, string> sir_list_content;
             string json;
             using (StreamReader r = new StreamReader(PATH_TO_SIR_LIST))
             {
                 json = r.ReadToEnd();
             }
-            sir_list_content = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            return sir_list_content;
-         }
+            //json = JsonConvert.DeserializeObject<string>>(json);
+            return json;
+
+        }
 
 
         public void SerializeInJson(object objectToSerialize, string filename)
