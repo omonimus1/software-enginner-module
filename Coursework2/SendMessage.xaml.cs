@@ -48,9 +48,6 @@ namespace Coursework2
         string[] urgent_email_categories = { "theft", "staff attack", "ATM theft", "raid", "customer attack", "staff abuse", "bom threat", "tNot Foundism",
             "suspicious incident", "intelligence", "cash loss"};
 
-        /*
-         * TextBoxMessage_TextChange(): Will keep the form open while user is typing
-         */
         public void TextBoxMessage_TextChanged(object sender, EventArgs e)
         {
             this.TextMessage = txtBoxMessage.Text;
@@ -60,6 +57,12 @@ namespace Coursework2
         {
 
         }
+
+        /// <summary>
+        ///     Check if a given string is an UK mobile phon number: for example 07464329999
+        /// </summary>
+        /// <param name="possible_id">String to analize</param>
+        /// <returns>True if the given string is an uk mobile phone number, false otherwise</returns>
         public bool IsAMessageID(string possible_id)
         {
             // Check if from index from the second char to the last, all chars are digits; 
@@ -74,13 +77,12 @@ namespace Coursework2
                 return false;
         }
 
-        /*
-         * get_message_nature(): return the nature of the message in base header
-         * - Return  S: if the header is of a mobile phone 
-         * - Return  E: if the header is an email address
-         * - Return  T: if the header is from a twitter user
-         * - Return  N: if the header type has not been recognised
-         */
+        /// <summary>
+        ///     Analize the message subject and extract the message cateogy by analizing the ID contained in the 
+        ///     subject
+        /// </summary>
+        /// <returns>S: if the message is a text-message, T if the mesage is a tweet, E if it's an email, N otherwise
+        /// if the message nature has not been recognised</returns>
         public string GetMessageId(string header)
         {
 
@@ -108,35 +110,19 @@ namespace Coursework2
             }
             // No message ID found; 
             return "N";
-
         }
 
-
-
-
-        /*
-         * extend_any_abbreviation(message, len_message):
-         *      It search on textwords.csv file any possible abbreaviation and add to the message
-         *      body the meaning of this abbreaviation. 
-         *      It returns the extended version of the message. 
-         */
-        /*
-  * extend_any_abbreviation(message, len_message):
-  *      It search on textwords.csv file any possible abbreaviation and add to the message
-  *      body the meaning of this abbreaviation. 
-  *      It returns the extended version of the message. 
-  */
+        /// <summary>
+        ///    Given a message, it analize each string of the message and check if any of these
+        ///    string is an text abbreviation stored in a .csv with the extention mearning. 
+        ///    If an abbreavetion is found, the meaning of the abbreavitation will be added in the message; 
+        /// </summary>
+        /// <param name="message">Message to analize</param>
+        /// <param name="len_message">Length of the message</param>
+        /// <returns>Message with the meaning of each text abbreviation</returns>
         public string ExtendAbbreviationInsideMessage(string message, int len_message)
         {
-            // Process storage and check if abbreviations needs to be extended
-            // Process storage and check if abbreviations needs to be extended
-            /* “Saw your message ROFL can’t wait to see you” becomes “Saw your message 
-             * ROFL<Rolls on the floor laughing> can’t wait to see you” */
-
-            // Expand abbreviations
-            // path_abbreviation_list
             string possible_abbreviation = "";
-
             for (int i = 0; i < len_message; i++)
             {
                 possible_abbreviation = "";
@@ -147,7 +133,7 @@ namespace Coursework2
 
                 }
                 // Now, we have the possible abbreviation; 
-                // If abbreviation is empty skype
+                // If abbreviation is empty skip
                 if (possible_abbreviation == "" || possible_abbreviation == " ")
                     continue;
                 // Check if abbreviation is inside the CVS file:
@@ -177,13 +163,12 @@ namespace Coursework2
             return message;
         }
 
-        /*
-         * HideUrls(message, len_message)
-         *      return the message without explicit urls address, storing each url in a list URLS
-         *      and hiding the url in the message, writing instead <URL Quarantined>
-         *      
-         *      Returns the message without urls. 
-         */
+        /// <summary>
+        ///      Hide any url contained in the message body, substituting these urls with the string: "<QUARANTINED>"
+        /// </summary>
+        /// <param name="message">Messge body</param>
+        /// <param name="len_message">Length of the message</param>
+        /// <returns>Returns the message without any urls.</returns>
         string HideUrls(string message, int len_message)
         {
             var message_without_link = "";
@@ -217,9 +202,11 @@ namespace Coursework2
             return message_without_link;
         }
 
-        /*
-         * IsHttpUrl(string:: url) return true if the string provided in input is a link; 
-         */
+        /// <summary>
+        ///     Check if a given string is an http/https/ftp url
+        /// </summary>
+        /// <param name="possible_url">String to analize</param>
+        /// <returns>True if possible_url is a valid url, false otherwise</returns>
         public bool IsHttpUrl(string possible_url)
         {
 
@@ -229,6 +216,12 @@ namespace Coursework2
             return result;
         }
 
+        /// <summary>
+        ///     Check if any keyword of the subject matches a list of special set of words
+        ///     used to report an emergency situation; 
+        /// </summary>
+        /// <param name="subject">List of string present in the subject</param>
+        /// <returns>True if the subject contains </returns>
         public bool IsIncidentReportEmail(String[] subject)
         {
             // Search the subject of the email has a prority keyword  /* or a bit longer: (stringArray.Any(s => stringToCheck.Contains(s))) */
@@ -238,6 +231,9 @@ namespace Coursework2
                 return false;
         }
 
+        /// <summary>
+        ///     Output the content of the sir_list.json file
+        /// </summary>
         void PrintContentSirList()
         {
             // Load SirList Content
@@ -247,16 +243,24 @@ namespace Coursework2
             // Clear content of the sir list
         }
 
+        /// <summary>
+        ///     Print the updated global list of hashtag; 
+        /// </summary>
         void PrintAndEraseGlobalHashtag()
         {
             MessageBox.Show(string.Join(Environment.NewLine, global_hashtag), "Trend Hashtag List");
-            global_hashtag.Clear();
+            // global_hashtag.Clear();
         }
 
-        /*
-         * PrintCategorisedData (header, sender, message, category)
-         *  Output the message ID, message body, category, sender and list of hashtag and urls; 
-         */
+        /// <summary>
+        ///      Output details of the message sent
+        /// </summary>
+        /// <param name="header">header of the message</param>
+        /// <param name="sender">Sender ID: mobile phone - email - tweeter user id</param>
+        /// <param name="message">Body message</param>
+        /// <param name="subject">Subject of the message</param>
+        /// <param name="category">Cateogory: Unkown / Text message / tweet </param>
+        /// <param name="emergency_nature">Egerncy nature: none / iuntellignece / cash loss / back found etc..</param>
         void PrintCategorisedData(string header, string sender, string message, string subject, char category, string emergency_nature)
         {
             if (category == 'S')
@@ -268,12 +272,6 @@ namespace Coursework2
                      + "Mobile Phone Number Sender: " + sender
                      + Environment.NewLine
                      + "Message body: " + message
-                     + Environment.NewLine
-                     + "List of Hashtags and frequency found in the message:"
-                     + string.Join(Environment.NewLine, hashtag)
-                     + Environment.NewLine
-                     + "List of URLS found in the message"
-                     + string.Join(Environment.NewLine, urls)
                  );
             }
             else if (category == 'E')
@@ -314,11 +312,19 @@ namespace Coursework2
                 + string.Join(Environment.NewLine, urls)
              );
             }
+            else
+            {
+                MessageBox.Show("Error: Nature of the message has not been recognised");
+            }
 
         }
-        /*
-    * IsValidEmail(possible email): returns true if a given string respect the email format
-    */
+
+
+        /// <summary>
+        ///     Check if a given string is an email
+        /// </summary>
+        /// <param name="possible_email">string to analize</param>
+        /// <returns>True if the given string is an email, false otherwise</returns>
         public bool IsValidEmail(string possible_email)
         {
             try
@@ -332,12 +338,13 @@ namespace Coursework2
             }
         }
 
-        /*
-   *  GetTwitterUserId(message, len_message):
-   *      return a twitterUserID it has been found. A twitter id is any string with lenght >2 that 
-   *      starts with '@';
-   *      "NO TWITTER USER ID FOUND" otherwise. 
-   */
+   
+        /// <summary>
+        ///     Returns the firt occurrency of a tweet user id; 
+        /// </summary>
+        /// <param name="message">Mesage</param>
+        /// <param name="len_message">Length of the message</param>
+        /// <returns>Twitter user id if it exists, error message otherwise</returns>
         public string GetTwitterUserID(string message, int len_message)
         {
             const string TWEET_ID_NOT_FOUND = "Twttier User ID not found - Max Twitter ID Length allowed: 16";
@@ -361,21 +368,26 @@ namespace Coursework2
             return TWEET_ID_NOT_FOUND;
         }
 
-        /*
-         * IsPhoneNumber(number): 
-         *      returns true if the given string is a mobile phone number. 
-         *      false otherwise
-         */
+
+        /// <summary>
+        ///     Check if a given string is a mobile phone number
+        ///     
+        /// </summary>
+        /// <param name="number">string to analize</param>
+        /// <returns>True if the given string is a valid UK mobile phone number, false otherwise</returns>
         public static bool IsPhoneNumber(string number)
         {
             return Regex.Match(number, @"^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$", RegexOptions.IgnoreCase).Success;
 
         }
 
-        /*
-         * GetMobilePhoneSender(message, len_message):
-         *      search inside a string a mobile phone number; 
-         */
+
+        /// <summary>
+        ///         Return a mobile phone number contained in the message if it exists
+        /// </summary>
+        /// <param name="message">message to analize</param>
+        /// <param name="len_message">Length of the message</param>
+        /// <returns> mobile phone number contained in the message if it exists, error message otherwise</returns>
         public string GetMobilePhoneSender(string message, int len_message)
         {
             string possible_number;
@@ -396,15 +408,14 @@ namespace Coursework2
             return "Unkown mobile phone number";
         }
 
-        /*
-         * StoreListOfHashtag(message, len_message):
-         *      search inside a message an hastage and store any of them 
-         *      in the hashta lists.
-         */
+        /// <summary>
+        ///     Create hashmap used to register the hashtag and frequency of each 
+        ///     hashtag in the message; 
+        /// </summary>
+        /// <param name="message">Message body</param>
+        /// <param name="len_message">Length of the message</param>
         public void StoreListOfHashtag(string message, int len_message)
         {
-
-
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
             for (int i = 0; i < len_message; i++)
@@ -437,6 +448,8 @@ namespace Coursework2
             // Serialize global hashtag trending list
             data.SerializeTrendingList(global_hashtag);
         }
+
+        
         public bool IsSubjectIncidentReport(string subject)
         {
             Boolean hasDate = false;
@@ -463,6 +476,11 @@ namespace Coursework2
             }
         }
 
+        /// <summary>
+        ///     Check if a given string is a UK bank acccount sort-code
+        /// </summary>
+        /// <param name="possible_sort_code">Possible sort code to validate</param>
+        /// <returns>Returns true if the given string is  avalid sort-code, false otherwise</returns>
         bool IsSortCode(string possible_sort_code)
         {
             Regex r = new Regex(@"\b[0-9]{2}-?[0-9]{2}-?[0-9]{2}\b");
@@ -476,6 +494,12 @@ namespace Coursework2
                 return false;
             }
         }
+
+        /// <summary>
+        ///     Check if a given string is a UK bank account sort code or not; 
+        /// </summary>
+        /// <param name="inputText">list of string that composes the message</param>
+        /// <returns>Valid sort code if exists, error message otherwise</returns>
         string GetSortCode(String[] inputText)
         {
             foreach (string word in inputText)
@@ -486,6 +510,12 @@ namespace Coursework2
             return "Sort Code Not Found"; 
         }
 
+
+        /// <summary>
+        ///     Searh inside the message at least one emergency keyword used to categorize the nature of the message
+        /// </summary>
+        /// <param name="message_array">Given string to analize</param>
+        /// <returns>Nature of the incident report - error message otherwise</returns>
         string GetNatureIncendent(String[] message_array)
         {
             int len = message_array.Length;
@@ -498,6 +528,12 @@ namespace Coursework2
             return "Not Found";
         }
 
+        /// <summary>
+        ///         Used to manage different message elaboration in accordign to the 
+        ///         nature of the message: text message / email / tweet
+        /// </summary>
+        /// <param name="message">Message to analize</param>
+        /// <param name="subject">Subject of the message</param>
         public void ManageMessage(string message, string subject)
         {
             string sender_ = "Sender unkown";
@@ -546,7 +582,6 @@ namespace Coursework2
                 // Insert the string "Sort Code:" at the beginning of the bank sort code
                 sort_code = sort_code.Insert(0, "Sort Code: ");
                 string nature_of_incident = GetNatureIncendent(subject_array);
-                // nature_of_incident = nature_of_incident.Insert(0, "Nature Of Incident: ");
                 bool incident = IsIncidentReportEmail(subject_array);
                 
                 
@@ -615,9 +650,11 @@ namespace Coursework2
             }
         }
 
-        /*
-         * Button_Clear_Click(): remove any content insered in the message form
-         */
+        /// <summary>
+        ///     Empty both message and header textboxes used to insert manually the message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Button_Clear_Click(object sender, RoutedEventArgs e)
         {
             txtBoxMessage.Text = "";
@@ -629,12 +666,14 @@ namespace Coursework2
 
         }
 
-
-        /*
-         * GetEmailSender(message, len_message):
-         *      Search inside the message string an email and returs it. 
-         *      If there are no email inside the text, it will return: "NOT EMAIL ID FOUND"
-         */
+        /// <summary>
+        ///    Search inside the message string an email and returs it the email exists
+        ///    
+        /// </summary>
+        /// <param name="message">message to analize</param>
+        /// <param name="len_message">Length of the message1</param>
+        /// <param name="index_end_email">Rference parameter to keep track of the end of the email</param>
+        /// <returns>Email if it exists, error message otherwise</returns>
         public string GetEmailSender(string message, int len_message, ref int index_end_email)
         {
             string word;
