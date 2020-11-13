@@ -10,11 +10,29 @@ namespace DataLayer
     {
         private const string PATH_STORAGE_MESSAGES = "../../../DataLayer/data.json";
         private const string PATH_TO_SIR_LIST = "../../../DataLayer/sir_list.json";
-        private const string PATH_TO_TRENDING_HASHTAG_LIST = "../../../DataLayer/glabal_hashtag.json";
+        private const string PATH_TO_TRENDING_HASHTAG_LIST = "../../../DataLayer/global_hashtag.json";
 
-        public void SerializeTrendingList(Dictionary<string, int> dic)
+        public Dictionary<string, int> LoadTrendingHashtagList()
         {
+            // Read json content and store it in a string
+            Dictionary<string, int> hashtag_trending_list;
+            string json;
+            using (StreamReader r = new StreamReader(PATH_TO_TRENDING_HASHTAG_LIST))
+            {
+                json = r.ReadToEnd();
+            }
+            hashtag_trending_list = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
+            return hashtag_trending_list;
+        }
 
+        public void SerializeTrendingList(Dictionary<string, int> trending_hashtag)
+        {
+            string json_string = JsonConvert.SerializeObject(trending_hashtag, Formatting.Indented);
+            using (var tw = new StreamWriter(@"" + PATH_TO_TRENDING_HASHTAG_LIST, true))
+            {
+                tw.WriteLine(json_string.ToString());
+                tw.Close();
+            }
         }
         public void SerializeSirList(string sort_code , string nature)
         {
@@ -82,8 +100,6 @@ namespace DataLayer
                 urls_list = urls
             };
             SerializeInJson(dynObject, PATH_STORAGE_MESSAGES);
-            urls.Clear();
-            hashtag.Clear();     
         }
     }
 }

@@ -288,9 +288,11 @@ namespace Coursework2
                  + "Message body: " + message
                  + Environment.NewLine
                 + "List of Hashtags and frequency found in the message:"
+                + Environment.NewLine
                 + string.Join(Environment.NewLine, hashtag) 
                 + Environment.NewLine
                 + "List of URLS found in the message"
+                + Environment.NewLine
                 + string.Join(Environment.NewLine, urls)
              );
             }
@@ -383,6 +385,10 @@ namespace Coursework2
          */
         public void StoreListOfHashtag(string message, int len_message)
         {
+            // Load global hashtag trending list; 
+            DataManagement d = new DataManagement();
+            // Dictionary<string, int> global_hashtag = d.LoadTrendingHashtagList(); 
+            Dictionary<string, int> global_hashtag = new Dictionary<string, int>();
             // Hashtag: word with a Lenght >= 2, where the first char is '#';
             string possible_hashtag;
             for (int i = 0; i < len_message; i++)
@@ -404,9 +410,16 @@ namespace Coursework2
                             hashtag[possible_hashtag]++;
                         else
                             hashtag.Add(possible_hashtag, 1);
+                        // Check if the same hashtag is present in the GLOBAL trending list
+                        if (global_hashtag.ContainsKey(possible_hashtag))
+                            global_hashtag[possible_hashtag]++;
+                        else
+                            global_hashtag.Add(possible_hashtag, 1);
                     }
                 }
             }
+            // Serialize global hashtag trending list
+            d.SerializeTrendingList(global_hashtag);
         }
         public bool IsSubjectIncidentReport(string subject)
         {
@@ -545,19 +558,20 @@ namespace Coursework2
             }
             else if (message_id[0] == 'T')
             {
-
-                // Extend messager abbreviation; 
+                urls.Clear();
+                hashtag.Clear();
                 // Extend messager abbreviation; 
                 message = ExtendAbbreviationInsideMessage(message, len_message);
-
+                string total_message = message + subject; 
                 // search ID twitter user in the body
-                sender_ = GetTwitterUserID(message, len_message);
+                sender_ = GetTwitterUserID(total_message, len_message);
                 // search all hashtag and store them in a list;
-                StoreListOfHashtag(message, len_message);
+                StoreListOfHashtag(total_message, len_message);
                 PrintCategorisedData(message_id, sender_, message, subject, message_id[0], "none");
 
                 // Store message in json file 
                 m.SerializeMessage(message_id, sender_, message, subject, message_id[0], "", ref urls, ref hashtag);
+
             }
         }
         /*
