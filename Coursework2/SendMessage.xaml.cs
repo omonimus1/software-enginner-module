@@ -35,8 +35,7 @@ namespace Coursework2
         public string TextMessage;
         // Path to the cvs file that contains all the possible abbreviations 
         // and their extented meaning
-        //private  string PATH_ABBREVIATION_LIST = "../../../DataLayer/textwords.csv";
-        string abbreviation_list = "textwords.csv";
+        private const string ABBREVIATION_LIST_FILENAME = "textwords.csv";
         private const int MAX_LENGTH_TWITTER_ID = 16;
 
 
@@ -137,7 +136,7 @@ namespace Coursework2
                 if (possible_abbreviation == "" || possible_abbreviation == " ")
                     continue;
                 // Check if abbreviation is inside the CVS file:
-                StreamReader sr = new StreamReader(@"../../../DataLayer/" + abbreviation_list);
+                StreamReader sr = new StreamReader(@"../../../DataLayer/" + ABBREVIATION_LIST_FILENAME);
                 string strline = "";
                 string[] _values = null;
                 int x = 0;
@@ -668,7 +667,6 @@ namespace Coursework2
 
         /// <summary>
         ///    Search inside the message string an email and returs it the email exists
-        ///    
         /// </summary>
         /// <param name="message">message to analize</param>
         /// <param name="len_message">Length of the message1</param>
@@ -693,7 +691,6 @@ namespace Coursework2
                         index_end_email = i;
                         return word;
                     }
-
                 }
             }
             // No EMAIL Id has been found; 

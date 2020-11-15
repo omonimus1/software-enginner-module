@@ -1,6 +1,0 @@
-- Sistemare riepilogo message in base alla cateogir adi messaggi;
-- Enstendere correttamente le abbreviazioni
-- Sistemare categoria priorita' email 
-
-- Creare Diagram Classes
-- Creare Report

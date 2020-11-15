@@ -28,7 +28,10 @@ namespace Coursework2
             InitializeComponent();
         }
 
-        // Message Botton Event
+        /// <summary>
+        ///     Show the Contat us form, where the user is able to insert
+        ///     subject and body of the message and send it. 
+        /// </summary>
         public void Button_Message_Click(object sender, RoutedEventArgs e)
         {
             SendMessage objectSendMessage = new SendMessage();
@@ -38,7 +41,10 @@ namespace Coursework2
 
 
 
-       // [System.Runtime.InteropServices.ComVisible(true)]
+       /// <summary>
+       ///      Allows user to browse in the filesyst, select a file 
+       ///      extract automatically the content of that file and start the message management. 
+       /// </summary>
         public void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
