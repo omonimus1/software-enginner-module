@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "NtU6bzpUD/bLOuCgY/j4CKs4ZYD6NqM1YQDhyl3nYkrliAmyc2c6t2U23Bl7MXlKiDNT9RaPL/UWek9WX6u9Ew==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pc\\Desktop\\dev\\software-enginner-module\\40401270_coursework1\\DataLayer\\DataLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pc\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\pc\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\pc\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

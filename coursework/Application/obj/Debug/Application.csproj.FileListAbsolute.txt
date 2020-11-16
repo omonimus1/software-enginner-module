@@ -1,5 +1,0 @@
-H:\software-enginner-module\coursework\Application\obj\Debug\Application.csprojAssemblyReference.cache
-H:\software-enginner-module\coursework\Application\obj\Debug\MainWindow.g.cs
-H:\software-enginner-module\coursework\Application\obj\Debug\App.g.cs
-H:\software-enginner-module\coursework\Application\obj\Debug\Application_MarkupCompile.cache
-H:\software-enginner-module\coursework\Application\obj\Debug\Application_MarkupCompile.lref
